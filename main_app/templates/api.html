@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>{{ title }}</h1>
+
+    <hr>
+    <div>
+        <ul>
+            <li><Strong>Book Title:</Strong> {{ bookTitle }}</li>
+            <li><Strong>Publisher:</Strong> {{ publisher }}</li>
+            <li><Strong>Published Date:</Strong> {{ publishedDate }}</li>
+            <li><Strong>Category:</Strong> {{ categories }}</li>
+            <li><Strong>Authors:</Strong> {{ authors }}</li>
+            <li><Strong>ISBN:</Strong> {{ ISBN }}</li>
+            <li><Strong>Description:</Strong> {{ description}}</li>
+            <img src="{{ thumbnail }}" alt="image">
+        </ul>
+    </div>
+{% endblock %}
