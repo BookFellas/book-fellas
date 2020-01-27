@@ -1,8 +1,26 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 import requests 
 import random
 from .models import *
+
+def signup(request):
+    error_message = ''
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('index')
+        else:
+            error_message = 'Invalid credentials - try again'
+    form = UserCreationForm()
+    context = {'form': form, 'error_message': error_message}
+    return render(request, 'registration/signup.html', context)
 
 def home(request):
     return render(request, 'home.html', {
@@ -13,6 +31,15 @@ def about(request):
     return render(request, 'about.html', {
         'title': 'About Page'
     })
+
+def books_index(request):
+    books = Book.objects.all()
+    # books = Book.objects.filter(user = request.user)
+    return render(request, 'books/index.html', { 'books': books })
+
+def books_detail(request, book_id):
+    book = Book.objects.get(id=book_id)
+    return render(request, 'books/detail.html', {'book': book })
 
 def api(request):
     #resp = requests.get('https://www.googleapis.com/books/v1/volumes?q=subject:fiction')
