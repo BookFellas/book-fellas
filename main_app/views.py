@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -40,6 +41,11 @@ def books_index(request):
 def books_detail(request, book_id):
     book = Book.objects.get(id=book_id)
     return render(request, 'books/detail.html', {'book': book })
+
+def profiles_index(request):
+    profiles = Profile.objects.all()
+    # profiles = profile.objects.filter(user = request.user)
+    return render(request, 'profiles/index.html', { 'profiles': profiles })
 
 def api(request):
     #resp = requests.get('https://www.googleapis.com/books/v1/volumes?q=subject:fiction')
