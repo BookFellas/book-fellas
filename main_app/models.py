@@ -13,20 +13,20 @@ class Book(models.Model):
     price = models.FloatField()
     quantity = models.IntegerField()
     book_img = models.URLField(max_length=350, blank=True)
-    
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
 
 class Cart(models.Model):
     order_date = models.DateField(auto_now=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.BooleanField(default=True)
     quantity = models.IntegerField()
     book = models.ManyToManyField(Book)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.user
+        return self.user.username
 
 class Profile(models.Model):
     phone = models.CharField(max_length=25,null=True)
