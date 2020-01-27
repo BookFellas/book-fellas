@@ -29,16 +29,16 @@ class Cart(models.Model):
         return self.user
 
 class Profile(models.Model):
-    phone = models.IntegerField()
-    address = models.CharField(max_length=255)
-    postal_code = models.CharField(max_length=12)
-    city = models.CharField(max_length=20)
-    country = models.CharField(max_length=20)
-    birthday = models.DateField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    phone = models.CharField(max_length=25,null=True)
+    address = models.CharField(max_length=255, null=True)
+    postal_code = models.CharField(max_length=12, null=True)
+    city = models.CharField(max_length=20, null=True)
+    country = models.CharField(max_length=20, null=True)
+    birthday = models.DateField(null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return self.user.username
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
