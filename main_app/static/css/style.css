@@ -16,3 +16,16 @@ footer {
     bottom: 0px;
     left: 0px;
 }
+.row {
+    text-align: center;
+}
+
+ul {
+    list-style: none;
+}
+.card {
+    width: 18rem;
+}
+.card-text {
+    text-align: left;
+}
