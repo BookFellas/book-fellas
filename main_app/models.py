@@ -4,27 +4,29 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 from datetime import date
 
+class Book(models.Model):
+    isbn = models.CharField(max_length=100)
+    title = models.CharField(max_length=100)
+    year_published = models.CharField(max_length=15, default='2010')
+    author = models.CharField(max_length=100)
+    publisher = models.CharField(max_length=30)
+    price = models.FloatField()
+    quantity = models.IntegerField()
+    book_img = models.URLField(max_length=350, blank=True)
+    
+
+    def __str__(self):
+        return self.title
+
 class Cart(models.Model):
     order_date = models.DateField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.BooleanField(default=True)
     quantity = models.IntegerField()
+    book = models.ManyToManyField(Book)
 
     def __str__(self):
         return self.user
-
-class Book(models.Model):
-    isbn = models.IntegerField()
-    title = models.CharField(max_length=100)
-    year_published = models.IntegerField()
-    author = models.CharField(max_length=100)
-    publisher = models.CharField(max_length=30)
-    price = models.FloatField()
-    quantity = models.IntegerField()
-    cart = models.ManyToManyField(Cart)
-
-    def __str__(self):
-        return self.title
 
 class Profile(models.Model):
     phone = models.IntegerField()
@@ -39,7 +41,7 @@ class Profile(models.Model):
         return self.name
 
 @receiver(post_save, sender=User)
-def create_user_profile(sender, intance, created, **kwards):
+def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
 
