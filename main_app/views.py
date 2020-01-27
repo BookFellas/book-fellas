@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-import requests
+import requests 
+import random
 
 def home(request):
     return render(request, 'home.html', {
@@ -13,21 +14,44 @@ def about(request):
     })
 
 def api(request):
-    resp = requests.get('https://www.googleapis.com/books/v1/volumes?q=isbn:0679775439')
+    resp = requests.get('https://www.googleapis.com/books/v1/volumes?q=subject:fiction')
     
     if resp.status_code != 200:
         print('Something went wrong')
 
     items = resp.json()['items']
-        
-    return render(request, 'api.html', {
-        'title': 'API',
-        'bookTitle': items[0]['volumeInfo']['title'],
-        'publisher': items[0]['volumeInfo']['publisher'],
-        'publishedDate': items[0]['volumeInfo']['publishedDate'],
-        'authors': items[0]['volumeInfo']['authors'][0],
-        'ISBN': items[0]['volumeInfo']['industryIdentifiers'][0]['identifier'],
-        'category': items[0]['volumeInfo']['description'],
-        'description': items[0]['volumeInfo']['description'],
-        'thumbnail': items[0]['volumeInfo']['imageLinks']['thumbnail']
+
+    return render(request, 'api.html', { 'items': items
+    # gettign data from api to front end
+        # 'title': 'API',
+        # 'bookTitle': items[2]['volumeInfo']['title'],
+        # 'publisher': items[2]['volumeInfo']['publisher'],
+        # 'publishedDate': items[2]['volumeInfo']['publishedDate'],
+        # 'authors': items[2]['volumeInfo']['authors'][0],
+        # 'ISBN': items[2]['volumeInfo']['industryIdentifiers'][0]['identifier'],
+        # 'category': items[2]['volumeInfo']['description'],
+        # 'description': items[2]['volumeInfo']['description'],
+        # 'thumbnail': items[2]['volumeInfo']['imageLinks']['thumbnail']
     })
+
+
+    #adding data to the database through the console 
+
+    # for item in items:
+    #     industry_identifiers = item['volumeInfo'].get('industryIdentifiers', [])
+    #     if len(industry_identifiers):
+    #         isbn = industry_identifiers[0].get('identifier', '123456789123')
+    #     else:
+    #         isbn = '123456789123'
+
+    #     Book.objects.create(
+    #         isbn=isbn,
+    #         title=item['volumeInfo']['title'],
+    #         year_published=item['volumeInfo'].get('publishedDate', '2011'),
+    #         author=item['volumeInfo']['authors'][0],
+    #         publisher=item['volumeInfo']['publisher'],
+    #         price=round(random.uniform(1.99, 99.99),2),
+    #         quantity=random.randint(1, 30),
+    #         book_img=item['volumeInfo']['imageLinks']['thumbnail']
+    #     )
+

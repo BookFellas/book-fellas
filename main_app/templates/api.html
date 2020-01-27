@@ -1,18 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
     <h1>{{ title }}</h1>
-
     <hr>
-    <div>
-        <ul>
-            <li><Strong>Book Title:</Strong> {{ bookTitle }}</li>
-            <li><Strong>Publisher:</Strong> {{ publisher }}</li>
-            <li><Strong>Published Date:</Strong> {{ publishedDate }}</li>
-            <li><Strong>Category:</Strong> {{ categories }}</li>
-            <li><Strong>Authors:</Strong> {{ authors }}</li>
-            <li><Strong>ISBN:</Strong> {{ ISBN }}</li>
-            <li><Strong>Description:</Strong> {{ description}}</li>
-            <img src="{{ thumbnail }}" alt="image">
-        </ul>
-    </div>
+    {% for item in items %}
+        <div class="card" style="width:400px">
+            <img class="card-img-top" src="{{ item.volumeInfo.imageLinks.thumbnail }}" alt="{{ item.volumeInfo.title }}-image">
+            <div class="card-body">
+                <h4 class="card-title">{{ item.volumeInfo.title }}</h4>
+                <ul class="card-text">
+                    <li><Strong>Publisher:</Strong> {{ item.volumeInfo.publisher }}</li>
+                    <li><Strong>Published Date:</Strong> {{ item.volumeInfo.publishedDate }}</li>
+                    <li><Strong>Category:</Strong> {{ item.volumeInfo.categories.0 }}</li>
+                    <li><Strong>Authors:</Strong> {{ item.volumeInfo.authors.0 }}</li>
+                    <li><Strong>ISBN:</Strong> {{ item.volumeInfo.industryIdentifiers.0.identifier }}</li>
+                    <li><Strong>Description:</Strong> {{ item.volumeInfo.description}}</li>
+                </ul>
+                <a href="#" class="btn btn-primary">Add To Cart</a>
+            </div>
+        </div>
+    {% endfor %}
 {% endblock %}
