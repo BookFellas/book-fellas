@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Books</h1>
+
+{% for book in books %}
+    <a href="{% url 'detail' book.id %}">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">{{ book.name }}</span>
+            <p>Title: {{ book.title }}</p>
+            <p>Author: {{ book.author }}</p>
+			<p>Published:{{ book.year_published }}</P>
+			<p>Publisher:{{ book.publisher }}</P>
+			<p>Price:{{ book.price }}</P>
+			<p>ISNB:{{ book.isbn }}</P>
+            {% if book.quantity > 0 %}
+                <p>quantity: {{ book.quantity }}</p>
+            {% else %}
+                <p>status: Not available now</p>
+            {% endif %}
+        </div>
+    </div>
+    </a>
+{% endfor %}
+
+{% endblock %}
