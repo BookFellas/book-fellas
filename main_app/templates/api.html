@@ -4,16 +4,16 @@
     <hr>
     {% for item in items %}
         <div class="card" style="width:400px">
-            <img class="card-img-top" src="{{ item.volumeInfo.imageLinks.thumbnail }}" alt="{{ item.volumeInfo.title }}-image">
+            <img class="card-img-top" src="{{ item.book_img }}" alt="{{ item.volumeInfo.title }}-image">
             <div class="card-body">
-                <h4 class="card-title">{{ item.volumeInfo.title }}</h4>
+                <h4 class="card-title">{{ item.title }}</h4>
                 <ul class="card-text">
-                    <li><Strong>Publisher:</Strong> {{ item.volumeInfo.publisher }}</li>
-                    <li><Strong>Published Date:</Strong> {{ item.volumeInfo.publishedDate }}</li>
-                    <li><Strong>Category:</Strong> {{ item.volumeInfo.categories.0 }}</li>
-                    <li><Strong>Authors:</Strong> {{ item.volumeInfo.authors.0 }}</li>
-                    <li><Strong>ISBN:</Strong> {{ item.volumeInfo.industryIdentifiers.0.identifier }}</li>
-                    <li><Strong>Description:</Strong> {{ item.volumeInfo.description}}</li>
+                    <li><Strong>Publisher:</Strong> {{ item.publisher }}</li>
+                    <li><Strong>Published Date:</Strong> {{ item.year_published }}</li>
+                    <li><Strong>Authors:</Strong> {{ item.author }}</li>
+                    <li><Strong>ISBN:</Strong> {{ item.isbn}}</li>
+                    <li><Strong>Quantity:</Strong> {{ item.quantity}}</li>
+                    <li><Strong>Quantity:</Strong> {{ item.price}}</li>
                 </ul>
                 <a href="#" class="btn btn-primary">Add To Cart</a>
             </div>

@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 import requests 
 import random
+from .models import *
 
 def home(request):
     return render(request, 'home.html', {
@@ -14,14 +15,14 @@ def about(request):
     })
 
 def api(request):
-    resp = requests.get('https://www.googleapis.com/books/v1/volumes?q=subject:fiction')
+    #resp = requests.get('https://www.googleapis.com/books/v1/volumes?q=subject:fiction')
     
-    if resp.status_code != 200:
-        print('Something went wrong')
+    # if resp.status_code != 200:
+    #     print('Something went wrong')
 
-    items = resp.json()['items']
+    # items = resp.json()['items']
 
-    return render(request, 'api.html', { 'items': items
+    return render(request, 'api.html', { 'items': Book.objects.all()
     # gettign data from api to front end
         # 'title': 'API',
         # 'bookTitle': items[2]['volumeInfo']['title'],

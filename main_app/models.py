@@ -17,7 +17,7 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
-        
+
 class Cart(models.Model):
     order_date = models.DateField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -41,7 +41,7 @@ class Profile(models.Model):
         return self.name
 
 @receiver(post_save, sender=User)
-def create_user_profile(sender, intance, created, **kwards):
+def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
 
