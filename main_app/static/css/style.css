@@ -6,27 +6,38 @@ body {
     background-color: white;
     display: flex;
     flex-direction: column;
+    text-align: center;
 }
 
 footer {
-    margin-top: auto;
-    width: 100%;
+    position: fixed;
     height: 50px;
-    position: sticky;
+    width: 100%;
     bottom: 0px;
     left: 0px;
 }
 
 .row {
     text-align: center;
+    justify-content: center;
 }
 
 ul {
     list-style: none;
 }
-
 .card {
+    max-width: 540px;
+}
+.card img {
+    max-height: 50vh;
+    max-width: 50vh;
+}
+.card-deck {
     width: 18rem;
+    padding: 10px;
+}
+.card-deck img{
+    height: 30vh;
 }
 
 .card-text {
@@ -35,7 +46,6 @@ ul {
 
 th {
     text-align: center;
-    width: 400px;
 }
 
 th>label {
@@ -43,8 +53,8 @@ th>label {
 }
 
 td>input {
-    width: 900px;
     height: 40px;
+    width: 100%;
 }
 
 table {
@@ -72,4 +82,19 @@ table {
     background-image: url(https://images2.minutemediacdn.com/image/upload/c_crop,h_1890,w_3363,x_0,y_193/f_auto,q_auto,w_1100/v1565628997/shape/mentalfloss/gettyimages-944631208.jpg);
     background-size: cover;
     height: 500px;
+    width: 1000px;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+h1 {
+    color: rgb(245, 228, 135);
+    text-align: center;
+    font-size: 80px;
 }
