@@ -1,27 +1,31 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h3 class="row">Book Details</h3>
-<div class="row card mb-3" style="width: 800px;">
-	<div class="row no-gutters">
-		<div class="col-md-4">
-			<img src="{{book.book_img}}" class="card-img" alt="">
-		</div>
-		<div class="col-md-8">
-			<div class="card-body" style="height: 355px;">
-				<h5 class="card-title">{{ book.title }}</h5>
-				<p>Author: {{ book.author }}</p>
-				<p>Published:{{ book.year_published }}</P>
-				<p>Publisher:{{ book.publisher }}</P>
-				<p>Price:{{ book.price }}$CA</P>
-				<p>ISNB:{{ book.isbn }}</P>
-				{% if book.quantity > 0 %}
-					<p>quantity: {{ book.quantity }}</p>
-				{% else %}
-					<p>status: Not available now</p>
-				{% endif %}
+<div class="container">
+	<div class="row">
+		<div class="card md-3" style="max-width: 540px;">
+			<div class="row no-gutters">
+				<div class="col-md-4">
+					<img src="{{book.book_img}}" class="card-img" alt="">
+				</div>
+				<div class="col-md-8">
+					<div class="card-body">
+						<h5 class="card-title">{{ book.title }}</h5>
+						<p>Author: {{ book.author }}</p>
+						<p>Published:{{ book.year_published }}</P>
+						<p>Publisher:{{ book.publisher }}</P>
+						<p>Price:{{ book.price }}</P>
+						<p>ISBN:{{ book.isbn }}</P>
+						{% if book.quantity > 0 %}
+							<p>quantity: {{ book.quantity }}</p>
+						{% else %}
+							<p>status: Not available now</p>
+						{% endif %}
+						<p>Description:{{ book.description }}</P>
+					</div>
+				</div>
 			</div>
-        </div>
+		</div>
 	</div>
 </div>
 

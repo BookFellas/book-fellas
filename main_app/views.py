@@ -56,7 +56,7 @@ def profiles_index(request):
 
 @login_required
 def cart_index(request):
-    cart = Cart.objects.all()
+    #cart = User.objects.filter(products)
     book = Book.objects.all()
     return render(request, 'cart/index.html', { 'cart': cart }, { 'book': book })
 
@@ -102,8 +102,8 @@ def api(request):
     #         year_published=item['volumeInfo'].get('publishedDate', '2011'),
     #         author=item['volumeInfo']['authors'][0],
     #         publisher=item['volumeInfo']['publisher'],
+    #         description=item['volumeInfo']['description'],
     #         price=round(random.uniform(1.99, 99.99),2),
     #         quantity=random.randint(1, 30),
     #         book_img=item['volumeInfo']['imageLinks']['thumbnail']
     #     )
-

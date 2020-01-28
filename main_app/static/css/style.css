@@ -6,13 +6,15 @@ body {
     background-color: white;
     display: flex;
     flex-direction: column;
+    text-align: center;
 }
 
 footer {
     position: fixed;
     height: 50px;
-    bottom: 0;
     width: 100%;
+    bottom: 0px;
+    left: 0px;
 }
 
 .row {
@@ -23,9 +25,19 @@ footer {
 ul {
     list-style: none;
 }
-
 .card {
+    max-width: 540px;
+}
+.card img {
+    max-height: 50vh;
+    max-width: 50vh;
+}
+.card-deck {
     width: 18rem;
+    padding: 10px;
+}
+.card-deck img{
+    height: 30vh;
 }
 
 .card-text {
@@ -34,7 +46,6 @@ ul {
 
 th {
     text-align: center;
-    width: 400px;
 }
 
 th>label {
@@ -42,8 +53,8 @@ th>label {
 }
 
 td>input {
-    width: 900px;
     height: 40px;
+    width: 100%;
 }
 
 table {
