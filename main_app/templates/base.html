@@ -21,7 +21,7 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <li class="navbar-nav"><a class="nav-link" href="{% url 'index' %}"><strong><i class="fas fa-book-open fa-2x"></i></strong></a></li>
+        <li class="navbar-nav"><a class="nav-link" href="{% url 'index' %}"><strong>Books</strong></a></li>
         <ul class="navbar-nav ml-auto">
         {% if user.is_authenticated %}
         <li class="nav-item dropdown">
@@ -41,9 +41,9 @@
             <li class="nav-item"><a class="nav-link" href="{% url 'cart_index' %}"><i class="fas fa-shopping-cart fa-lg" style="margin: 0 10px; color: red"></i></a></li>
         {% endif %}
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+        <form class="form-inline my-2 my-lg-0" action="/search/?q=" method="GET">
+            <input id="input-search" class="form-control mr-sm-2" type="text" name="q" placeholder="Search" aria-label="Search" required>
+            <button id="button-search" class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
         </form>
     </div>
     </nav>

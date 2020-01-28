@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h3> {{ title }} </h3>
+    <div class="container">
+        <div class="row">
+        {% for book in books %}
+            <div class="card-deck">
+                <a href="{% url 'detail' book.id %}">
+                    <div class="card">
+                        <img class="card-img-top" src="{{ book.book_img }}" alt="{{ book.title }}-image">
+                        <div class="card-body">
+                            <h4 class="card-title">{{ book.title }}</h4>
+                            <ul class="card-text">
+                                <li><Strong>Authors:</Strong> {{ book.author }}</li>
+                                <li><Strong>Price:</Strong> {{ book.price}}</li>
+                                {% if book.quantity > 0 %}
+                                    <li><Strong>Quantity:</Strong> {{ book.quantity }}</li>
+                                {% else %}
+                                    <li><Strong>Quantity:</Strong> Not available</li>
+                                {% endif %}
+                            </ul>
+                            <a href="#" class="btn btn-primary">Add To Cart</a>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+{% endblock %}

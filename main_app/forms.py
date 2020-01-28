@@ -1,6 +1,7 @@
 from django.forms import ModelForm
 from .models import *
 from django.contrib.auth.models import User
+from django import forms
 
 class ProfileForm(ModelForm):
 	class Meta:
@@ -11,3 +12,6 @@ class UserForm(ModelForm):
 	class Meta:
 		model = User
 		fields = '__all__'
+
+class SearchForm(forms.Form):
+    q = forms.CharField(label='Search', max_length=50)

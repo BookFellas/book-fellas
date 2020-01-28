@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.views.generic.edit import UpdateView, CreateView, DeleteView
 from django.views.generic import ListView, DetailView
@@ -10,6 +10,22 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 import requests
 import random
 from .models import *
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from . serializers import bookSerializer
+from django.db.models import Q
+
+class bookList(APIView):
+    def get(self, request):
+        query = self.request.GET.get('q')
+        books = Book.objects.filter(Q(title__icontains=query) | Q(author__icontains=query))
+        return render(request, 'search_results.html', {
+            'title': 'Reults',
+            'books': books
+        })
+        # serializer = bookSerializer(books, many=True)
+        # return Response(serializer.data)
 
 def signup(request):
     error_message = ''
@@ -30,8 +46,10 @@ class ProfileUpdate(LoginRequiredMixin, UpdateView):
     fields = ['phone', 'address', 'postal_code', 'city', 'country', 'birthday']
 
 def home(request):
+    books = Book.objects.all()
     return render(request, 'home.html', {
-        'title': 'Home Page'
+        'title': 'Home Page',
+        'books': books
     })
 
 def about(request):
