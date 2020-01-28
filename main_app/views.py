@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import UpdateView, CreateView, DeleteView
+from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
+from .forms import ProfileForm, UserForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -25,7 +27,7 @@ def signup(request):
 
 class ProfileUpdate(LoginRequiredMixin, UpdateView):
     model = Profile
-    fields = '__all__'
+    fields = ['phone', 'address', 'postal_code', 'city', 'country', 'birthday']
 
 def home(request):
     return render(request, 'home.html', {
@@ -46,14 +48,21 @@ def books_detail(request, book_id):
     book = Book.objects.get(id=book_id)
     return render(request, 'books/detail.html', {'book': book })
 
+@login_required
 def profiles_index(request):
     profiles = Profile.objects.all()
     # profiles = profile.objects.filter(user = request.user)
     return render(request, 'profiles/index.html', { 'profiles': profiles })
 
+@login_required
+def cart_index(request):
+    cart = Cart.objects.all()
+    book = Book.objects.all()
+    return render(request, 'cart/index.html', { 'cart': cart }, { 'book': book })
+
 def api(request):
     #resp = requests.get('https://www.googleapis.com/books/v1/volumes?q=subject:fiction')
-    
+
     # if resp.status_code != 200:
     #     print('Something went wrong')
 
@@ -73,7 +82,12 @@ def api(request):
     })
 
 
-    #adding data to the database through the console 
+    #adding data to the database through the console
+    # from main_app.models import *
+    # import requests
+    # import random
+    # resp = requests.get('https://www.googleapis.com/books/v1/volumes?q=subject:fiction')
+    # items = resp.json()['items']
 
     # from main_app.models import *
     # import requests

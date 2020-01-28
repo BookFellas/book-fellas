@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>My Cart</h3>
+
+    <div class="card" style="width: 70rem;">
+        <h4 class="card-header">Hello {{ user.username }}</h4>
+			<div class="card-body">
+				<p class="card-text">Book: {{ user.book.title }}</p>
+				<p class="card-text">Created: {{ user.cart.order_date }}</p>
+				<p class="card-text">Status:{{ user.cart.status }}</P>
+				<p class="card-text">Order Quantity:
+				<form action="/cart" method="POST">
+					<input
+						type="number"
+						name="{{ user.cart.quantity }}"
+						class="form-control"
+						min="0"
+						step="1"
+					/>
+				</form>
+				</P>
+				<p class="card-text">Total Price:{{ book.price }}</P>
+				<a href="#" class="btn btn-success">Check out</a>
+			</div>
+    </div>
+
+{% endblock %}
