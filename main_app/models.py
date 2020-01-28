@@ -13,7 +13,6 @@ class Book(models.Model):
     price = models.FloatField()
     quantity = models.IntegerField()
     book_img = models.URLField(max_length=350, blank=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title

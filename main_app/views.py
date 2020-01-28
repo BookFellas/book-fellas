@@ -5,7 +5,7 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-# import requests
+import requests
 import random
 from .models import *
 
@@ -16,12 +16,16 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('books/index')
+            return redirect('index')
         else:
             error_message = 'Invalid credentials - try again'
     form = UserCreationForm()
     context = {'form': form, 'error_message': error_message}
     return render(request, 'registration/signup.html', context)
+
+class ProfileUpdate(LoginRequiredMixin, UpdateView):
+    model = Profile
+    fields = '__all__'
 
 def home(request):
     return render(request, 'home.html', {
@@ -70,6 +74,13 @@ def api(request):
 
 
     #adding data to the database through the console 
+
+    # from main_app.models import *
+    # import requests
+    # import random
+
+    # resp = requests.get('https://www.googleapis.com/books/v1/volumes?q=subject:fiction')
+    # items = resp.json()['items']
 
     # for item in items:
     #     industry_identifiers = item['volumeInfo'].get('industryIdentifiers', [])
