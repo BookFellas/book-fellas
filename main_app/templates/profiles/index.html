@@ -1,23 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Profile</h1>
+<h3>My Profile</h3>
 
-{% for profile in profiles %}
-    <div class="card">
-        <div class="card-content">
-            <span class="card-title">{{ profile.user }}</span>
-            <p>Phone: {{ profile.phone }}</p>
-            <p>address: {{ profile.address }}</p>
-			<p>Post code:{{ profile.postal_code }}</P>
-			<p>city:{{ profile.city }}</P>
-			<p>country:{{ profile.country }}</P>
-			<p>Birthday:{{ profile.birthday }}</P>
-        </div>
-		{% comment %} <div class="card-action">
-			<a href="{% url 'profiles_update' user.id %}">Edit</a>
-		</div> {% endcomment %}
+
+    <div class="card" style="width: 70rem;">
+        <h4 class="card-header">Hello {{ user.profile.user }}</h4>
+			<div class="card-body">
+				<p class="card-text">Phone: {{ user.profile.phone }}</p>
+				<p class="card-text">Address: {{ user.profile.address }}</p>
+				<p class="card-text">Post code:{{ user.profile.postal_code }}</P>
+				<p class="card-text">City:{{ user.profile.city }}</P>
+				<p class="card-text">Country:{{ user.profile.country }}</P>
+				<p class="card-text">Birthday:{{ user.profile.birthday }}</P>
+				<a href="{% url 'profiles_update' user.id %}" class="btn btn-success">Edit</a>
+			</div>
     </div>
-{% endfor %}
+
 
 {% endblock %}

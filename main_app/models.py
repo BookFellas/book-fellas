@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.contrib.auth.models import User
 from django.dispatch import receiver
 from django.db.models.signals import post_save
@@ -13,7 +14,6 @@ class Book(models.Model):
     price = models.FloatField()
     quantity = models.IntegerField()
     book_img = models.URLField(max_length=350, blank=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
@@ -39,6 +39,9 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+    def get_absolute_url(self):
+        return reverse('profiles_update', kwargs={'pk': self.id})
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

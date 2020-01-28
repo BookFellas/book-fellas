@@ -16,6 +16,7 @@ footer {
     bottom: 0px;
     left: 0px;
 }
+
 .row {
     text-align: center;
 }
@@ -23,9 +24,52 @@ footer {
 ul {
     list-style: none;
 }
+
 .card {
     width: 18rem;
 }
+
 .card-text {
     text-align: left;
+}
+
+th {
+    text-align: center;
+    width: 400px;
+}
+
+th>label {
+    margin-top: .5rem;
+}
+
+td>input {
+    width: 900px;
+    height: 40px;
+}
+
+table {
+    margin-top: 30px;
+}
+
+.container {
+    margin-top: 30px;
+}
+
+#search-input {
+    height: 45px;
+    width: 250px;
+    border-radius: 5px;
+}
+
+#submit {
+    margin-bottom: 0;
+    height: 45px;
+    width: 80px;
+    border-radius: 5px;
+}
+
+.jumbotron {
+    background-image: url(https://images2.minutemediacdn.com/image/upload/c_crop,h_1890,w_3363,x_0,y_193/f_auto,q_auto,w_1100/v1565628997/shape/mentalfloss/gettyimages-944631208.jpg);
+    background-size: cover;
+    height: 500px;
 }

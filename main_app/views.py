@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import UpdateView, CreateView, DeleteView
+from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
+from .forms import ProfileForm, UserForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-# import requests
+import requests
 import random
 from .models import *
 
@@ -16,12 +18,16 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('books/index')
+            return redirect('index')
         else:
             error_message = 'Invalid credentials - try again'
     form = UserCreationForm()
     context = {'form': form, 'error_message': error_message}
     return render(request, 'registration/signup.html', context)
+
+class ProfileUpdate(LoginRequiredMixin, UpdateView):
+    model = Profile
+    fields = ['phone', 'address', 'postal_code', 'city', 'country', 'birthday']
 
 def home(request):
     return render(request, 'home.html', {
@@ -42,14 +48,21 @@ def books_detail(request, book_id):
     book = Book.objects.get(id=book_id)
     return render(request, 'books/detail.html', {'book': book })
 
+@login_required
 def profiles_index(request):
     profiles = Profile.objects.all()
     # profiles = profile.objects.filter(user = request.user)
     return render(request, 'profiles/index.html', { 'profiles': profiles })
 
+@login_required
+def cart_index(request):
+    cart = Cart.objects.all()
+    book = Book.objects.all()
+    return render(request, 'cart/index.html', { 'cart': cart }, { 'book': book })
+
 def api(request):
     #resp = requests.get('https://www.googleapis.com/books/v1/volumes?q=subject:fiction')
-    
+
     # if resp.status_code != 200:
     #     print('Something went wrong')
 
@@ -71,21 +84,21 @@ def api(request):
 
     #adding data to the database through the console 
 
-    # for item in items:
-    #     industry_identifiers = item['volumeInfo'].get('industryIdentifiers', [])
-    #     if len(industry_identifiers):
-    #         isbn = industry_identifiers[0].get('identifier', '123456789123')
-    #     else:
-    #         isbn = '123456789123'
+    for item in items:
+        industry_identifiers = item['volumeInfo'].get('industryIdentifiers', [])
+        if len(industry_identifiers):
+            isbn = industry_identifiers[0].get('identifier', '123456789123')
+        else:
+            isbn = '123456789123'
 
-    #     Book.objects.create(
-    #         isbn=isbn,
-    #         title=item['volumeInfo']['title'],
-    #         year_published=item['volumeInfo'].get('publishedDate', '2011'),
-    #         author=item['volumeInfo']['authors'][0],
-    #         publisher=item['volumeInfo']['publisher'],
-    #         price=round(random.uniform(1.99, 99.99),2),
-    #         quantity=random.randint(1, 30),
-    #         book_img=item['volumeInfo']['imageLinks']['thumbnail']
-    #     )
+        Book.objects.create(
+            isbn=isbn,
+            title=item['volumeInfo']['title'],
+            year_published=item['volumeInfo'].get('publishedDate', '2011'),
+            author=item['volumeInfo']['authors'][0],
+            publisher=item['volumeInfo']['publisher'],
+            price=round(random.uniform(1.99, 99.99),2),
+            quantity=random.randint(1, 30),
+            book_img=item['volumeInfo']['imageLinks']['thumbnail']
+        )
 
