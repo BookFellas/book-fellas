@@ -12,7 +12,7 @@ footer {
     margin-top: auto;
     width: 100%;
     height: 50px;
-    position: absolute;
+    position: sticky;
     bottom: 0px;
     left: 0px;
 }

@@ -82,23 +82,28 @@ def api(request):
     })
 
 
-    #adding data to the database through the console 
+    #adding data to the database through the console
+    # from main_app.models import *
+    # import requests
+    # import random
+    # resp = requests.get('https://www.googleapis.com/books/v1/volumes?q=subject:fiction')
+    # items = resp.json()['items']
 
-    for item in items:
-        industry_identifiers = item['volumeInfo'].get('industryIdentifiers', [])
-        if len(industry_identifiers):
-            isbn = industry_identifiers[0].get('identifier', '123456789123')
-        else:
-            isbn = '123456789123'
+    # for item in items:
+    #     industry_identifiers = item['volumeInfo'].get('industryIdentifiers', [])
+    #     if len(industry_identifiers):
+    #         isbn = industry_identifiers[0].get('identifier', '123456789123')
+    #     else:
+    #         isbn = '123456789123'
 
-        Book.objects.create(
-            isbn=isbn,
-            title=item['volumeInfo']['title'],
-            year_published=item['volumeInfo'].get('publishedDate', '2011'),
-            author=item['volumeInfo']['authors'][0],
-            publisher=item['volumeInfo']['publisher'],
-            price=round(random.uniform(1.99, 99.99),2),
-            quantity=random.randint(1, 30),
-            book_img=item['volumeInfo']['imageLinks']['thumbnail']
-        )
+    #     Book.objects.create(
+    #         isbn=isbn,
+    #         title=item['volumeInfo']['title'],
+    #         year_published=item['volumeInfo'].get('publishedDate', '2011'),
+    #         author=item['volumeInfo']['authors'][0],
+    #         publisher=item['volumeInfo']['publisher'],
+    #         price=round(random.uniform(1.99, 99.99),2),
+    #         quantity=random.randint(1, 30),
+    #         book_img=item['volumeInfo']['imageLinks']['thumbnail']
+    #     )
 
