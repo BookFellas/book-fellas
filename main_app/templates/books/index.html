@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Books</h1>
+<h3 class="row">Books</h3>
 <div class="row">
 {% for book in books %}
-    <div class="card-deck">
+    <div class="card-deck" style="width:400px">
         <a href="{% url 'detail' book.id %}">
             <div class="card">
-                <img class="card-img-top" src="{{ book.book_img }}" alt="{{ book.volumeInfo.title }}-image">
+                <img class="card-img-top" style="height: 450px" src="{{ book.book_img }}" alt="{{ book.volumeInfo.title }}-image">
                 <div class="card-body">
                     <h4 class="card-title">{{ book.title }}</h4>
                     <ul class="card-text">
@@ -15,7 +15,6 @@
                         <li><Strong>Published Date:</Strong> {{ book.year_published }}</li>
                         <li><Strong>Authors:</Strong> {{ book.author }}</li>
                         <li><Strong>ISBN:</Strong> {{ book.isbn}}</li>
-                        <li><Strong>Quantity:</Strong> {{ book.quantity}}</li>
                         <li><Strong>Price:</Strong> {{ book.price}}$CA</li>
                         {% if book.quantity > 0 %}
                             <li><Strong>Quantity:</Strong> {{ book.quantity }}</li>
@@ -23,11 +22,13 @@
                             <li><Strong>Quantity:</Strong> Not available now</li>
                         {% endif %}
                     </ul>
-                    <a href="#" class="btn btn-primary">Add To Cart</a>
+                    <a href="#" class="btn btn-success">Add To Cart</a>
                 </div>
             </div>
         </a>
     </div>
 {% endfor %}
 </div>
+
+
 {% endblock %}
