@@ -20,14 +20,12 @@ from django.http import JsonResponse
 class bookList(APIView):
     def get(self, request):
         query = self.request.GET.get('q')
-        books = Book.objects.filter(Q(title__icontains=query) | Q(author__icontains=query))
+        books = Book.objects.filter(Q(title__icontains=query) | Q(author__icontains=query) | Q(publisher__icontains=query))
         return render(request, 'search_results.html', {
             'title': 'Results',
             'books': books
         })
-        # serializer = bookSerializer(books, many=True)
-        # return Response(serializer.data)
-
+        
 def signup(request):
     error_message = ''
     if request.method == 'POST':
@@ -60,7 +58,6 @@ def about(request):
 
 def books_index(request):
     books = Book.objects.all()
-    # books = Book.objects.filter(user = request.user)
     return render(request, 'books/index.html', { 'books': books })
 
 def books_detail(request, book_id):
@@ -70,12 +67,10 @@ def books_detail(request, book_id):
 @login_required
 def profiles_index(request):
     profiles = Profile.objects.all()
-    # profiles = profile.objects.filter(user = request.user)
     return render(request, 'profiles/index.html', { 'profiles': profiles })
 
 @login_required
 def cart_index(request):
-    #cart = User.objects.filter(products)
     book = Book.objects.all()
     return render(request, 'cart/index.html', { 'cart': cart }, { 'book': book })
 
