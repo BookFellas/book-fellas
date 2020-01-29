@@ -150,3 +150,11 @@ h1 {
     text-align: left;
     width: 70%;
 }
+
+#seed-search {
+    display: flex;
+}
+
+#seed-response {
+    padding-top: 30px;
+}

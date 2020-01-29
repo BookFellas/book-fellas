@@ -15,6 +15,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from . serializers import bookSerializer
 from django.db.models import Q
+from django.http import JsonResponse
 
 class bookList(APIView):
     def get(self, request):
@@ -78,57 +79,67 @@ def cart_index(request):
     book = Book.objects.all()
     return render(request, 'cart/index.html', { 'cart': cart }, { 'book': book })
 
-def api(request):
-    #resp = requests.get('https://www.googleapis.com/books/v1/volumes?q=subject:fiction')
+@login_required
+def seed(request):
+    if request.user.is_superuser:
+        return render(request, 'seed.html', {
+            'title': 'Seed DB'
+        })
+    else:
+        return redirect('index')
 
-    # if resp.status_code != 200:
-    #     print('Something went wrong')
+@login_required
+def seed_db(request):
+    if request.user.is_superuser:
+        if request.method == 'GET':
+            resp = requests.get(request.GET['link'])
 
-    # items = resp.json()['items']
+            if resp.status_code != 200:
+                print('Something went wrong')
+                return JsonResponse({'status': 'nok'})
+            else:
+                items = resp.json()['items']
 
-    return render(request, 'api.html', { 'items': Book.objects.all()
-    # gettign data from api to front end
-        # 'title': 'API',
-        # 'bookTitle': items[2]['volumeInfo']['title'],
-        # 'publisher': items[2]['volumeInfo']['publisher'],
-        # 'publishedDate': items[2]['volumeInfo']['publishedDate'],
-        # 'authors': items[2]['volumeInfo']['authors'][0],
-        # 'ISBN': items[2]['volumeInfo']['industryIdentifiers'][0]['identifier'],
-        # 'category': items[2]['volumeInfo']['description'],
-        # 'description': items[2]['volumeInfo']['description'],
-        # 'thumbnail': items[2]['volumeInfo']['imageLinks']['thumbnail']
-    })
+                for item in items:
+                    if len(item['volumeInfo'].get('authors', 'N/A')) > 1:
+                        authors = ", ".join(map(str, item['volumeInfo'].get('authors', 'N/A')))
+                    else:
+                        authors = item['volumeInfo'].get('authors', 'N/A')[0]
+                    if len(item['volumeInfo'].get('categories', 'Others')) > 1:
+                        categories = ", ".join(map(str, item['volumeInfo'].get('categories', 'Others')))
+                    else:
+                        categories = item['volumeInfo'].get('categories', 'Others')[0]
+                    pages = item['volumeInfo'].get('pageCount', 10)
+                    if item['saleInfo']:
+                        if (item['saleInfo']['saleability'] == 'FOR_SALE'):
+                            price = float(item['saleInfo']['listPrice']['amount'])
+                        else:
+                            price = round(random.uniform(1.99, 99.99),2)
+                    else:
+                        price = round(random.uniform(1.99, 99.99),2)
+                    industry_identifiers = item['volumeInfo'].get('industryIdentifiers', [])
+                    if len(industry_identifiers):
+                        isbn = industry_identifiers[0].get('identifier', '123456789123')
+                    else:
+                        isbn = '123456789123'
+                    if item['volumeInfo'].get('imageLinks'):
+                        thumbnail = item['volumeInfo']['imageLinks']['thumbnail']
+                    else:
+                        thumbnail = 'https://www.chelseagreen.com/wp-content/uploads/400px-x-600px-r01BookNotPictured-414-300x450.jpg'
 
-
-    #adding data to the database through the console
-    # from main_app.models import *
-    # import requests
-    # import random
-    # resp = requests.get('https://www.googleapis.com/books/v1/volumes?q=subject:fiction')
-    # items = resp.json()['items']
-
-    # from main_app.models import *
-    # import requests
-    # import random
-
-    # resp = requests.get('https://www.googleapis.com/books/v1/volumes?q=subject:fiction')
-    # items = resp.json()['items']
-
-    # for item in items:
-    #     industry_identifiers = item['volumeInfo'].get('industryIdentifiers', [])
-    #     if len(industry_identifiers):
-    #         isbn = industry_identifiers[0].get('identifier', '123456789123')
-    #     else:
-    #         isbn = '123456789123'
-
-    #     Book.objects.create(
-    #         isbn=isbn,
-    #         title=item['volumeInfo']['title'],
-    #         year_published=item['volumeInfo'].get('publishedDate', '2011'),
-    #         author=item['volumeInfo']['authors'][0],
-    #         publisher=item['volumeInfo']['publisher'],
-    #         description=item['volumeInfo']['description'],
-    #         price=round(random.uniform(1.99, 99.99),2),
-    #         quantity=random.randint(1, 30),
-    #         book_img=item['volumeInfo']['imageLinks']['thumbnail']
-    #     )
+                    Book.objects.create(
+                        isbn=isbn,
+                        title=item['volumeInfo']['title'],
+                        year_published=item['volumeInfo'].get('publishedDate', '2011'),
+                        author=authors,
+                        publisher=item['volumeInfo'].get('publisher', '-'),
+                        description=item['volumeInfo'].get('description', '-'),
+                        categories=categories,
+                        pages=pages,
+                        price=price,
+                        quantity=random.randint(1, 30),
+                        book_img=thumbnail
+                    )
+                return JsonResponse({'status': 'ok'})
+    else:
+        return redirect('index')
