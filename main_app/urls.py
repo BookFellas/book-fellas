@@ -12,4 +12,6 @@ urlpatterns = [
     path('cart/', views.cart_index, name='cart_index'),
     path('accounts/signup/', views.signup, name='signup'),
     url(r'^search/$', views.bookList.as_view(), name='search'),
+    url(r'^seed_db/$', views.seed_db, name='seed_db'),
+    path('seed/', views.seed, name='seed')
 ]

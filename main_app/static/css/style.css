@@ -3,15 +3,16 @@
 }
 
 body {
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     display: flex;
     flex-direction: column;
     text-align: center;
+    margin-bottom: 50px;
 }
 
 footer {
     position: fixed;
-    height: 50px;
+    height: 40px;
     width: 100%;
     bottom: 0px;
     left: 0px;
@@ -23,31 +24,52 @@ footer {
 }
 
 #results {
-    display: flex; 
-    justify-content: space-between; 
+    display: flex;
+    justify-content: space-between;
     flex-wrap: wrap;
 }
 
 ul {
     list-style: none;
 }
+
 .card {
-    max-width: 540px;
+    max-width: 600px;
+    border: none;
 }
+
 .card img {
     max-height: 50vh;
     max-width: 50vh;
 }
+
 .card-deck {
     width: 18rem;
     padding: 10px;
 }
-.card-deck img{
+
+.card-deck img {
     height: 30vh;
 }
 
 .card-text {
     text-align: left;
+}
+
+.card-text-three {
+    text-align: center;
+}
+
+.card-margin {
+    margin: auto;
+}
+
+.card-img-top {
+    object-fit: none;
+}
+
+.card-three {
+    object-fit: fill;
 }
 
 th {
@@ -85,23 +107,54 @@ table {
 }
 
 .jumbotron {
-    background-image: url(https://images2.minutemediacdn.com/image/upload/c_crop,h_1890,w_3363,x_0,y_193/f_auto,q_auto,w_1100/v1565628997/shape/mentalfloss/gettyimages-944631208.jpg);
+    background-image: url(https://parade.com/wp-content/uploads/2018/08/book-stack-library-club-reading-ftr.jpg);
     background-size: cover;
-    height: 500px;
+    height: 300px;
     width: 1000px;
     margin: 30px auto;
 }
 
+.jumbotron-h1 {
+    position: absolute;
+    left: 220px;
+    bottom: 387px;
+    width: 1000px;
+    height: 300px;
+    line-height: 50px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.7);
+}
+
+a {
+    color: black;
+}
+
 a:link {
     text-decoration: none;
+    color: black;
 }
 
 a:hover {
     text-decoration: none;
+    color: grey;
 }
 
 h1 {
-    color: rgb(245, 228, 135);
+    color: rgba(26, 85, 163, 0.822);
     text-align: center;
     font-size: 80px;
+    margin-top: 70px;
+}
+
+.sign {
+    text-align: left;
+    width: 70%;
+}
+
+#seed-search {
+    display: flex;
+}
+
+#seed-response {
+    padding-top: 30px;
 }
