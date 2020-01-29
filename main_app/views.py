@@ -101,14 +101,14 @@ def seed_db(request):
                 items = resp.json()['items']
 
                 for item in items:
-                    if len(item['volumeInfo'].get('authors', 'N/A')) > 1:
-                        authors = ", ".join(map(str, item['volumeInfo'].get('authors', 'N/A')))
+                    if item['volumeInfo'].get('authors') and len(item['volumeInfo'].get('authors')) > 1 :
+                        authors = ", ".join(map(str, item['volumeInfo'].get('authors', ['N/A'])))
                     else:
-                        authors = item['volumeInfo'].get('authors', 'N/A')[0]
-                    if len(item['volumeInfo'].get('categories', 'Others')) > 1:
-                        categories = ", ".join(map(str, item['volumeInfo'].get('categories', 'Others')))
+                        authors = item['volumeInfo'].get('authors', ['N/A'])[0]
+                    if item['volumeInfo'].get('categories') and len(item['volumeInfo'].get('categories')) > 1:
+                        categories = ", ".join(map(str, item['volumeInfo'].get('categories', ['Others'])))
                     else:
-                        categories = item['volumeInfo'].get('categories', 'Others')[0]
+                        categories = item['volumeInfo'].get('categories', ['Others'])[0]
                     pages = item['volumeInfo'].get('pageCount', 10)
                     if item['saleInfo']:
                         if (item['saleInfo']['saleability'] == 'FOR_SALE'):
@@ -132,8 +132,8 @@ def seed_db(request):
                         title=item['volumeInfo']['title'],
                         year_published=item['volumeInfo'].get('publishedDate', '2011'),
                         author=authors,
-                        publisher=item['volumeInfo'].get('publisher', '-'),
-                        description=item['volumeInfo'].get('description', '-'),
+                        publisher=item['volumeInfo'].get('publisher', 'N/A'),
+                        description=item['volumeInfo'].get('description', 'N/A'),
                         categories=categories,
                         pages=pages,
                         price=price,
