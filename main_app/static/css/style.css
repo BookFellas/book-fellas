@@ -99,26 +99,19 @@ table {
     border-radius: 5px;
 }
 
-#submit {
-    margin-bottom: 0;
-    height: 45px;
-    width: 80px;
-    border-radius: 5px;
-}
-
 .jumbotron {
     background-image: url(https://parade.com/wp-content/uploads/2018/08/book-stack-library-club-reading-ftr.jpg);
     background-size: cover;
     height: 300px;
-    width: 1000px;
     margin: 30px auto;
 }
 
 .jumbotron-h1 {
     position: absolute;
-    left: 220px;
-    bottom: 387px;
-    width: 1000px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    top: 134px;
     height: 300px;
     line-height: 50px;
     text-align: center;
@@ -143,7 +136,7 @@ h1 {
     color: rgba(26, 85, 163, 0.822);
     text-align: center;
     font-size: 80px;
-    margin-top: 70px;
+    padding: 50px;
 }
 
 .sign {
