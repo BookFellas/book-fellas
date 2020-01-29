@@ -16,6 +16,7 @@ from rest_framework import status
 from . serializers import bookSerializer
 from django.db.models import Q
 from django.http import JsonResponse
+from django.contrib.staticfiles.templatetags.staticfiles import static
 
 class bookList(APIView):
     def get(self, request):
@@ -120,7 +121,7 @@ def seed_db(request):
                     if item['volumeInfo'].get('imageLinks'):
                         thumbnail = item['volumeInfo']['imageLinks']['thumbnail']
                     else:
-                        thumbnail = 'https://www.chelseagreen.com/wp-content/uploads/400px-x-600px-r01BookNotPictured-414-300x450.jpg'
+                        thumbnail = static('image/no-image.jpg')
 
                     Book.objects.create(
                         isbn=isbn,

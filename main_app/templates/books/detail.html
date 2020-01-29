@@ -11,19 +11,19 @@
 				<div class="col-md-8">
 					<div class="card-body text-left">
 						<h5 class="card-title">{{ book.title }}</h5>
-						<p><strong>Author:</strong> {{ book.author }}</p>
-						<p><strong>Published:</strong>{{ book.year_published }}</P>
-						<p><strong>Publisher:</strong>{{ book.publisher }}</P>
-						<p><strong>Price:</strong>{{ book.price }}</P>
-						<p><strong>ISBN:</strong>{{ book.isbn }}</P>
+						<p><strong>Author:&nbsp</strong> {{ book.author }}</p>
+						<p><strong>Published:&nbsp</strong>{{ book.year_published }}</P>
+						<p><strong>Publisher:&nbsp</strong>{{ book.publisher }}</P>
+						<p><strong>Price:&nbsp</strong>{{ book.price }}</P>
+						<p><strong>ISBN:&nbsp</strong>{{ book.isbn }}</P>
 						{% if book.quantity > 0 %}
-							<p><strong>quantity:</strong> {{ book.quantity }}</p>
+							<p><strong>Quantity:&nbsp</strong> {{ book.quantity }}</p>
 						{% else %}
-							<p><strong>status:</strong> Not available now</p>
+							<p><strong>Status:&nbsp</strong> Not available now</p>
 						{% endif %}
 					</div>
 				</div>
-				<p class="text-left"><strong>Description:</strong>{{ book.description }}</P>
+				<p class="text-left"><strong>Description:&nbsp</strong>{{ book.description }}</P>
 			</div>
 		</div>
 	</div>
