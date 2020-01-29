@@ -21,7 +21,7 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <li class="navbar-nav"><a class="nav-link" href="{% url 'index' %}"><strong>Books</strong></a></li>
+        <li class="navbar-nav"><a class="nav-link" href="{% url 'index' %}"><h4>Books</h4></a></li>
         <ul class="navbar-nav ml-auto">
         {% if user.is_authenticated %}
         <li class="nav-item dropdown">
@@ -42,7 +42,7 @@
         {% endif %}
         </ul>
         <form class="form-inline my-2 my-lg-0" action="/search/?q=" method="GET">
-            <input id="input-search" class="form-control mr-sm-2" type="text" name="q" placeholder="Search" aria-label="Search" required>
+            <input id="input-search" class="form-control mr-sm-2" type="text" name="q" placeholder="Search over 10 books" aria-label="Search" required>
             <button id="button-search" class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
         </form>
     </div>
