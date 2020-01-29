@@ -58,7 +58,7 @@ class Profile(models.Model):
         return self.user.username
 
     def get_absolute_url(self):
-        return reverse('profiles_update', kwargs={'pk': self.id})
+        return reverse('profiles_index')
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

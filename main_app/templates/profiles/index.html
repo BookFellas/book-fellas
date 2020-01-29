@@ -1,15 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
+
     <div class="card row">
         <h4 class="card-header">Hello {{ user.profile.user }}</h4>
 			<div class="card-body">
-				<p class="card-text"><strong>Phone:</strong> {{ user.profile.phone }}</p>
-				<p class="card-text"><strong>Address:</strong> {{ user.profile.address }}</p>
-				<p class="card-text"><strong>Post Code:</strong>{{ user.profile.postal_code }}</P>
-				<p class="card-text"><strong>City:</strong>{{ user.profile.city }}</P>
-				<p class="card-text"><strong>Country:</strong>{{ user.profile.country }}</P>
-				<p class="card-text"><strong>Birthday:</strong>{{ user.profile.birthday }}</P>
+				<p class="card-text"><strong>Phone:&nbsp</strong> {{ user.profile.phone }}</p>
+				<p class="card-text"><strong>Address:&nbsp</strong> {{ user.profile.address }}</p>
+				<p class="card-text"><strong>Post Code:&nbsp</strong>{{ user.profile.postal_code }}</P>
+				<p class="card-text"><strong>City:&nbsp</strong>{{ user.profile.city }}</P>
+				<p class="card-text"><strong>Country:&nbsp</strong>{{ user.profile.country }}</P>
+				<p class="card-text"><strong>Birthday:&nbsp</strong>{{ user.profile.birthday }}</P>
 				<a href="{% url 'profiles_update' user.id %}" class="btn btn-success btn-block">Edit</a>
 			</div>
     </div>
+
 {% endblock %}
