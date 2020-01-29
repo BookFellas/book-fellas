@@ -3,27 +3,27 @@
 
 <div class="container">
 	<div class="row">
-		<div class="card md-3" style="max-width: 540px;">
+		<div class="card md-3">
 			<div class="row no-gutters">
 				<div class="col-md-4">
 					<img src="{{book.book_img}}" class="card-img" alt="">
 				</div>
 				<div class="col-md-8">
-					<div class="card-body">
+					<div class="card-body text-left">
 						<h5 class="card-title">{{ book.title }}</h5>
-						<p>Author: {{ book.author }}</p>
-						<p>Published:{{ book.year_published }}</P>
-						<p>Publisher:{{ book.publisher }}</P>
-						<p>Price:{{ book.price }}</P>
-						<p>ISBN:{{ book.isbn }}</P>
+						<p><strong>Author:</strong> {{ book.author }}</p>
+						<p><strong>Published:</strong>{{ book.year_published }}</P>
+						<p><strong>Publisher:</strong>{{ book.publisher }}</P>
+						<p><strong>Price:</strong>{{ book.price }}</P>
+						<p><strong>ISBN:</strong>{{ book.isbn }}</P>
 						{% if book.quantity > 0 %}
-							<p>quantity: {{ book.quantity }}</p>
+							<p><strong>quantity:</strong> {{ book.quantity }}</p>
 						{% else %}
-							<p>status: Not available now</p>
+							<p><strong>status:</strong> Not available now</p>
 						{% endif %}
-						<p>Description:{{ book.description }}</P>
 					</div>
 				</div>
+				<p class="text-left"><strong>Description:</strong>{{ book.description }}</P>
 			</div>
 		</div>
 	</div>

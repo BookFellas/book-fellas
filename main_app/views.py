@@ -21,7 +21,7 @@ class bookList(APIView):
         query = self.request.GET.get('q')
         books = Book.objects.filter(Q(title__icontains=query) | Q(author__icontains=query))
         return render(request, 'search_results.html', {
-            'title': 'Reults',
+            'title': 'Results',
             'books': books
         })
         # serializer = bookSerializer(books, many=True)
