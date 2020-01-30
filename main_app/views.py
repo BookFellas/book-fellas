@@ -144,11 +144,11 @@ def seed_db(request):
 
 def add_product_item(request, book_id):
     form = ProductItemForm(request.POST)
-    print(request.user.id)
     if form.is_valid():
         new_product_item = form.save(commit=False)
         new_product_item.book_id = book_id
-        #new_product_item.book.price = book.price
+        book = Book.objects.get(pk=book_id)
+        new_product_item.price = book.price
         new_product_item.user_id = request.user.id
         new_product_item.save()
     return redirect('/cart/')

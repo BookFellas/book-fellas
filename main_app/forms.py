@@ -19,4 +19,4 @@ class SearchForm(forms.Form):
 class ProductItemForm(ModelForm):
 	class Meta:
 		model = ProductItem
-		fields = ['quantity', 'price']
+		fields = ['quantity']
