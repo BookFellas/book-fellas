@@ -98,7 +98,7 @@ table {
 }
 
 .container {
-    margin-top: 30px;
+    margin-top: 60px;
 }
 
 #search-input {
@@ -157,9 +157,13 @@ h1 {
 
 .author {
     text-align: center;
+    margin-bottom: 60px;
 }
 
 .price {
     text-align: center;
-    margin-top: auto;
+    position: absolute;
+    bottom: 65px;
+    left: 80px;
+    padding: 10px;
 }

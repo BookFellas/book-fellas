@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h3>Books</h3>
 <div class="container">
-    <div class="row">
+    <h3>Books</h3>
+	<div class="row">
     {% for book in books %}
         <div class="card-deck">
             <a class="" href="{% url 'detail' book.id %}">
@@ -13,10 +13,9 @@
                         <h5 class="card-title">{{ book.title| truncatechars:30 }}</h5>
                         <ul class="card-text">
                             <li class="author">by&nbsp<Strong> {{ book.author| truncatechars:20 }}</Strong></li>
-                            <div class="pricediv">
-							<li class="price"><Strong>$</Strong> {{ book.price}}</li>
-                        	</div>
+							
 						</ul>
+						<div class="price"><Strong>$</Strong> {{ book.price}}</div>
                         <a href="#" class="btn btn-outline-dark mt-auto">Add To Cart</a>
                     </div>
                 </div>
