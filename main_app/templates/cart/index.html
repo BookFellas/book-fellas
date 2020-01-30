@@ -8,16 +8,21 @@
 					<th scope="col">Title</th>
 					<th scope="col">Price</th>
 					<th scope="col">Quantity</th>
+					<th scope="col"></th>
 				</tr>
 			</thead>
 			<tbody>
 				{% for product_item in product_items %}
+				{% if product_item.user.id == user.id and product_item.item.order == null %}
 					<tr>
-						<th scope="row"><img src="{{ product_item.book.book_img }}"></th>
-						<td>{{ product_item.book }}</td>
-						<td>{{ product_item.price }}.00</td>
+						
+							<th scope="row"><a href="/books/{{ product_item.book.id }}/"><img src="{{ product_item.book.book_img }}"></a></th>
+							<td><a href="/books/{{ product_item.book.id }}/">{{ product_item.book }}</a></td>
+						
+						<td>${% widthratio product_item.price 1 product_item.quantity %}</td>
 						<td>
 							<form action="/cart" method="POST" class='quantity-bar'>
+								{% csrf_token %}
 								<input
 									type="number"
 									name="{{ user.quantity }}"
@@ -28,7 +33,14 @@
 								>
 							</form>
 						</td>
+						<td>
+							<form action="{% url 'delete_product_item' product_item.id %}" method="POST" class='delete-cart-item'>
+								{% csrf_token %}
+								<input type="submit" class="btn btn-danger" value="X" >
+							</form>
+						</td>
 					</tr>
+				{% endif %}
 				{% endfor %}
 			</tbody>
 		</table>

@@ -16,5 +16,7 @@ urlpatterns = [
     path('seed/', views.seed, name='seed'),
     path('books/<int:book_id>/add_product_item', views.add_product_item, name='add_product_item'),
     path('categories_api/', views.categories_api, name='categories_api'),
-    url(r'categories/$', views.categoriesList.as_view(), name='categories')
+    url(r'categories/$', views.categoriesList.as_view(), name='categories'),
+    path('books/<int:book_id>/add_product_item_index', views.add_product_item_index, name='add_product_item_index'),
+    path('cart/<int:product_item_id>/delete_product_item/', views.delete_product_item, name='delete_product_item'),
 ]

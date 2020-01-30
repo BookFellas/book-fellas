@@ -206,6 +206,22 @@ def seed_db(request):
     else:
         return redirect('index')
 
+def add_product_item_index(request, book_id):
+    book = Book.objects.get(pk=book_id)
+    user_items = ProductItem.objects.filter(user=request.user)
+    order_items = user_items.filter(order__isnull=True)
+    items = order_items.filter(book_id=book.id)
+    for item in items:
+        item.quantity += 1
+        return redirect('/cart/')
+    new_product_item = ProductItem(quantity=0)
+    new_product_item.book_id = book_id
+    new_product_item.price = book.price
+    new_product_item.quantity += 1
+    new_product_item.user_id = request.user.id
+    new_product_item.save()
+    return redirect('/cart/')
+
 def add_product_item(request, book_id):
     form = ProductItemForm(request.POST)
     if form.is_valid():
@@ -215,4 +231,10 @@ def add_product_item(request, book_id):
         new_product_item.price = book.price
         new_product_item.user_id = request.user.id
         new_product_item.save()
+    return redirect('/cart/')
+
+def delete_product_item(request, product_item_id):
+    print(product_item_id)
+    prod = ProductItem.objects.get(pk=product_item_id)
+    prod.delete()
     return redirect('/cart/')
