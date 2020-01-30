@@ -9,6 +9,9 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     <script src="https://kit.fontawesome.com/ffb398ffd7.js" crossorigin="anonymous"></script>
     <script defer src="{% static 'javascripts/main.js' %}"></script>
+    {% if user.is_superuser %}
+        <script defer src="{% static 'javascripts/main_su.js' %}"></script>
+    {% endif %}
     <title>{{ title }}</title>
 </head>
 <body>
@@ -22,7 +25,11 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <li class="navbar-nav"><a class="nav-link" href="{% url 'index' %}"><h4>Books</h4></a></li>
-        <ul class="navbar-nav ml-auto">
+        <form class="form-inline my-2 my-lg-0 row" action="/search/?q=" method="GET">
+            <input class="form-control mr-sm-2" type="text" name="q" placeholder="Search" aria-label="Search" required>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+        </form>
+        <ul class="navbar-nav">
         {% if user.is_authenticated %}
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -45,10 +52,7 @@
             <li class="nav-item"><a class="nav-link" href="{% url 'cart_index' %}"><i class="fas fa-shopping-cart fa-lg" style="margin: 0 10px; color: red"></i></a></li>
         {% endif %}
         </ul>
-        <form class="form-inline my-2 my-lg-0" action="/search/?q=" method="GET">
-            <input class="form-control mr-sm-2" type="text" name="q" placeholder="Search" aria-label="Search" required>
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-        </form>
+        
     </div>
     </nav>
     <div class="alert alert-success alert-dismissible fade show" role="alert">

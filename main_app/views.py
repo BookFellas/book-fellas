@@ -16,11 +16,12 @@ from rest_framework import status
 from . serializers import bookSerializer
 from django.db.models import Q
 from django.http import JsonResponse
+from django.contrib.staticfiles.templatetags.staticfiles import static
 
 class bookList(APIView):
     def get(self, request):
         query = self.request.GET.get('q')
-        books = Book.objects.filter(Q(title__icontains=query) | Q(author__icontains=query))
+        books = Book.objects.filter(Q(title__icontains=query) | Q(author__icontains=query) | Q(publisher__icontains=query))
         return render(request, 'search_results.html', {
             'title': 'Results',
             'books': books
@@ -77,6 +78,7 @@ def cart_index(request):
     product_items = ProductItem.objects.all()
     return render(request, 'cart/index.html', {'product_items': product_items}, {'books': books})
 
+
 @login_required
 def seed(request):
     if request.user.is_superuser:
@@ -99,14 +101,14 @@ def seed_db(request):
                 items = resp.json()['items']
 
                 for item in items:
-                    if len(item['volumeInfo'].get('authors', '-')) > 1:
-                        authors = ", ".join(map(str, item['volumeInfo'].get('authors', 'N/A')))
+                    if item['volumeInfo'].get('authors') and len(item['volumeInfo'].get('authors')) > 1 :
+                        authors = ", ".join(map(str, item['volumeInfo'].get('authors', ['N/A'])))
                     else:
-                        authors = item['volumeInfo'].get('authors', 'N/A')[0]
-                    if len(item['volumeInfo'].get('categories', 'Others')) > 1:
-                        categories = ", ".join(map(str, item['volumeInfo'].get('categories', 'Others')))
+                        authors = item['volumeInfo'].get('authors', ['N/A'])[0]
+                    if item['volumeInfo'].get('categories') and len(item['volumeInfo'].get('categories')) > 1:
+                        categories = ", ".join(map(str, item['volumeInfo'].get('categories', ['Others'])))
                     else:
-                        categories = item['volumeInfo'].get('categories', 'Others')[0]
+                        categories = item['volumeInfo'].get('categories', ['Others'])[0]
                     pages = item['volumeInfo'].get('pageCount', 10)
                     if item['saleInfo']:
                         if (item['saleInfo']['saleability'] == 'FOR_SALE'):
@@ -123,15 +125,15 @@ def seed_db(request):
                     if item['volumeInfo'].get('imageLinks'):
                         thumbnail = item['volumeInfo']['imageLinks']['thumbnail']
                     else:
-                        thumbnail = 'https://www.chelseagreen.com/wp-content/uploads/400px-x-600px-r01BookNotPictured-414-300x450.jpg'
+                        thumbnail = static('image/no-image.jpg')
 
                     Book.objects.create(
                         isbn=isbn,
                         title=item['volumeInfo']['title'],
                         year_published=item['volumeInfo'].get('publishedDate', '2011'),
                         author=authors,
-                        publisher=item['volumeInfo'].get('publisher', '-'),
-                        description=item['volumeInfo'].get('description', '-'),
+                        publisher=item['volumeInfo'].get('publisher', 'N/A'),
+                        description=item['volumeInfo'].get('description', 'N/A'),
                         categories=categories,
                         pages=pages,
                         price=price,
