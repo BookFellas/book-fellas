@@ -26,7 +26,7 @@ class bookList(APIView):
             'title': 'Results',
             'books': books
         })
-        
+
 def signup(request):
     error_message = ''
     if request.method == 'POST':
