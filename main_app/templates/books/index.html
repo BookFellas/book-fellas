@@ -2,7 +2,7 @@
 {% block content %}
 
 <div class="container">
-    <h3>Books</h3>
+    <h3>{{ title }}</h3>
 	<div class="row">
     {% for book in books %}
         <div class="card-deck">
@@ -22,6 +22,40 @@
         </div>
     {% endfor %}
     </div>
+    {% if last_page != 0 %}
+        <div id="page_number">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item">
+                        {% if page_num == 0 %}
+                            <a class="page-link" href="{% url 'index' %}?" aria-label="Previous">
+                        {% else %}
+                            <a class="page-link" href="{% url 'index' %}?page={{page_num|add:"-1"}}" aria-label="Previous">
+                        {% endif %}
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    {% for count in total_pages %}
+                        {% if count == page_num %}
+                            <li class="page-item"><a class="page-link" id="you-are-here" href="{% url 'index' %}?page={{count}}">{{count|add:1}}</a></li>
+                        {% else %}
+                            <li class="page-item"><a class="page-link" href="{% url 'index' %}?page={{count}}">{{count|add:1}}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if page_num == last_page %}
+                        <a class="page-link" href="{% url 'index' %}?page={{page_num}}" aria-label="Next">
+                    {% else %}
+                        <a class="page-link" href="{% url 'index' %}?page={{page_num|add:1}}" aria-label="Next">
+                    {% endif %}
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    {% endif %}
 </div>
 
 
