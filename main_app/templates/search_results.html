@@ -1,30 +1,59 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h3> {{ title }} </h3>
     <div class="container">
+        <h3> {{ title }} </h3>
         <div class="row">
-        {% for book in books %}
-            <div class="card-deck">
-                <a href="{% url 'detail' book.id %}">
-                    <div class="card">
-                        <img class="card-img-top" src="{{ book.book_img }}" alt="{{ book.title }}-image">
-                        <div class="card-body d-flex flex-column">
-                            <h4 class="card-title">{{ book.title }}</h4>
-                            <ul class="card-text">
-                                <li><Strong>Authors:</Strong> {{ book.author }}</li>
-                                <li><Strong>Price:</Strong> {{ book.price}}</li>
-                                {% if book.quantity > 0 %}
-                                    <li><Strong>Quantity:</Strong> {{ book.quantity }}</li>
-                                {% else %}
-                                    <li><Strong>Quantity:</Strong> Not available</li>
-                                {% endif %}
-                            </ul>
-                            <a href="#" class="btn btn-outline-dark mt-auto">Add To Cart</a>
+            {% for book in books %}
+                <div class="card-deck">
+                    <a class="" href="{% url 'detail' book.id %}">
+                        <div class="card">
+                            <img class="card-img-top" src="{{ book.book_img }}" alt="{{ book.title }}-image">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">{{ book.title| truncatechars:30 }}</h5>
+                                <ul class="card-text">
+                                    <li class="author">by&nbsp<Strong> {{ book.author| truncatechars:20 }}</Strong></li>
+                                </ul>
+                                <div class="price"><Strong>$</Strong> {{ book.price}}</div>
+                                <a href="#" class="btn btn-outline-dark mt-auto">Add To Cart</a>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
-        {% endfor %}
+                    </a>
+                </div>
+            {% endfor %}
         </div>
+        {% if last_page != 0 %}
+            <div id="page_number">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            {% if page_num == 0 %}
+                                <a class="page-link" href="{% url 'search' %}?q={{query}}" aria-label="Previous">
+                            {% else %}
+                                <a class="page-link" href="{% url 'search' %}?q={{query}}&page={{page_num|add:"-1"}}" aria-label="Previous">
+                            {% endif %}
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                        {% for count in total_pages %}
+                            {% if count == page_num %}
+                                <li class="page-item"><a class="page-link" id="you-are-here" href="{% url 'search' %}?q={{query}}&page={{count}}">{{count|add:1}}</a></li>
+                            {% else %}
+                                <li class="page-item"><a class="page-link" href="{% url 'search' %}?q={{query}}&page={{count}}">{{count|add:1}}</a></li>
+                            {% endif %}
+                        {% endfor%}
+                        {% if page_num == last_page %}
+                            <a class="page-link" href="{% url 'search' %}?q={{query}}&page={{page_num}}" aria-label="Next">
+                        {% else %}
+                            <a class="page-link" href="{% url 'search' %}?q={{query}}&page={{page_num|add:1}}" aria-label="Next">
+                        {% endif %}
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}

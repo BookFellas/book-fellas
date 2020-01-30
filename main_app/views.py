@@ -13,7 +13,7 @@ from .models import *
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from . serializers import bookSerializer
+from . serializers import bookSerializer, categoriesSerializer
 from django.db.models import Q
 from django.http import JsonResponse
 from django.contrib.staticfiles.templatetags.staticfiles import static
@@ -21,11 +21,49 @@ from django.contrib.staticfiles.templatetags.staticfiles import static
 class bookList(APIView):
     def get(self, request):
         query = self.request.GET.get('q')
-        books = Book.objects.filter(Q(title__icontains=query) | Q(author__icontains=query) | Q(publisher__icontains=query))
+        books_per_page = 16
+        page_num = 0
+        if self.request.GET.get('cat') != None:
+            books = Book.objects.filter(Q(categories__icontains=query))
+        else:
+            books = Book.objects.filter(Q(title__icontains=query) | Q(author__icontains=query) | Q(publisher__icontains=query) | Q(categories__icontains=query))
+
+        total_books = len(books)
+
+        if total_books/books_per_page != 0:
+            total_pages = (total_books // books_per_page) + 1
+        else:
+            total_pages = (total_books // books_per_page)
+
+        if self.request.GET.get('page') != None:
+            page_num = int(self.request.GET.get('page'))
+            books = books[page_num*books_per_page:page_num*books_per_page+books_per_page]
+        else:
+            page_num = 0
+            books = books[0:books_per_page]
         return render(request, 'search_results.html', {
-            'title': 'Results',
-            'books': books
+            'title': f'Results for {query}',
+            'query': query,
+            'books': books,
+            'page_num': page_num,
+            'total_pages': range(total_pages),
+            'last_page': total_pages-1,
+            'sidebar': True
         })
+
+class categoriesList(APIView):
+    def get(self, request):
+        categories = Book.objects.values('categories').order_by('categories').distinct('categories')
+        serializer = categoriesSerializer(categories, many=True)
+        return Response(serializer.data)
+
+def categories_api(request):
+    if request.method == 'GET':
+        categories_list = []
+        categories = Book.objects.values('categories').order_by('categories').distinct('categories')
+        for cat in categories:
+            categories_list.append(cat['categories'])
+        return JsonResponse({'categores':categories_list}, safe=False)
 
 def signup(request):
     error_message = ''
@@ -49,7 +87,8 @@ def home(request):
     books = Book.objects.all()
     return render(request, 'home.html', {
         'title': 'Home Page',
-        'books': books
+        'books': books,
+        'sidebar': True
     })
 
 def about(request):
@@ -60,12 +99,36 @@ def about(request):
 def books_index(request):
     books = Book.objects.all()
     form = ProductItemForm()
+    books_per_page = 80
+
+    total_books = len(books)
+
+    if total_books/books_per_page != 0:
+        total_pages = (total_books // books_per_page) + 1
+    else:
+        total_pages = (total_books // books_per_page)
+
+    if request.GET.get('page') != None:
+        page_num = int(request.GET.get('page'))
+        books = books[page_num*books_per_page:page_num*books_per_page+books_per_page]
+    else:
+        page_num = 0
+        books = books[0:books_per_page]
+    return render(request, 'books/index.html', {
+        'title': 'Books',
+        'query': '',
+        'books': books,
+        'page_num': page_num,
+        'total_pages': range(total_pages),
+        'last_page': total_pages-1,
+        'sidebar': True
+    })
     return render(request, 'books/index.html', { 'books': books, 'product_item_form': form })
 
 def books_detail(request, book_id):
     book = Book.objects.get(id=book_id)
     form = ProductItemForm()
-    return render(request, 'books/detail.html', {'book': book, 'product_item_form': form })
+    return render(request, 'books/detail.html', {'book': book, 'sidebar': True, 'product_item_form': form })
 
 @login_required
 def profiles_index(request):
@@ -126,7 +189,6 @@ def seed_db(request):
                         thumbnail = item['volumeInfo']['imageLinks']['thumbnail']
                     else:
                         thumbnail = static('image/no-image.jpg')
-
                     Book.objects.create(
                         isbn=isbn,
                         title=item['volumeInfo']['title'],

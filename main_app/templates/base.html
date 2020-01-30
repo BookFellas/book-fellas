@@ -16,56 +16,77 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light border-success">
-    <a class="navbar-brand" href="/">
-        <img src="{% static 'image/BookFellas-Logo.png' alt="" %}">
+        <a class="navbar-brand" href="/">
+            <img src="{% static 'image/BookFellas-Logo.png' alt="" %}">
         </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <li class="navbar-nav"><a class="nav-link" href="{% url 'index' %}"><h4>Books</h4></a></li>
-        <form class="form-inline my-2 my-lg-0 row" action="/search/?q=" method="GET">
-            <input class="form-control mr-sm-2" type="text" name="q" placeholder="Search" aria-label="Search" required>
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-        </form>
-        <ul class="navbar-nav">
-        {% if user.is_authenticated %}
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{ user.username }}
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            {% if user.is_superuser %}
-                <a class="dropdown-item" href="{% url 'seed' %}">Seed DB</a>
-                <div class="dropdown-divider"></div>
-            {% endif %}
-            <a class="dropdown-item" href="{% url 'profiles_index' %}">My Profile</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
-            </div>
-        </li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'cart_index' %}"><i class="fas fa-shopping-cart fa-lg" style="margin: 0 10px; color: green"></i></a></li>
-        {% else %}
-            <li class="nav-item"><a class="nav-link" href="{% url 'signup' %}">Sign Up</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Log In</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'cart_index' %}"><i class="fas fa-shopping-cart fa-lg" style="margin: 0 10px; color: red"></i></a></li>
-        {% endif %}
-        </ul>
-        
-    </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <li class="navbar-nav"><a class="nav-link" href="{% url 'index' %}"><h4>Books</h4></a></li>
+            <form class="form-inline my-2 my-lg-0" action="/search/?q=" method="GET">
+                <input class="form-control mr-sm-2" type="text" name="q" placeholder="Search" aria-label="Search" required>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+            </form>
+            <ul class="navbar-nav">
+                {% if user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ user.username }}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            {% if user.is_superuser %}
+                                <a class="dropdown-item" href="{% url 'seed' %}">Seed DB</a>
+                                <div class="dropdown-divider"></div>
+                            {% endif %}
+                            <a class="dropdown-item" href="{% url 'profiles_index' %}">My Profile</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'cart_index' %}"><i class="fas fa-shopping-cart fa-lg" style="margin: 0 10px; color: green"></i></a></li>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'signup' %}">Sign Up</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Log In</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'cart_index' %}"><i class="fas fa-shopping-cart fa-lg" style="margin: 0 10px; color: red"></i></a></li>
+                {% endif %}
+            </ul>
+        </div>
     </nav>
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         This is a success alert—check it out!
     </div>
     <main class="container">
-    {% block content %}
-    {% endblock %}
+        {% if sidebar %}
+            <div id="mySidenav" class="sidenav">
+                <p id="about">
+                    <a href="{% url 'search' %}?q=Business">Business</a><br>
+                    <a href="{% url 'search' %}?q=Computer">Computer</a><br>
+                    <a href="{% url 'search' %}?q=Cooking&cat=1">Cooking</a><br>
+                    <a href="{% url 'search' %}?q=Drama&cat=1">Drama</a><br>
+                    <a href="{% url 'search' %}?q=Education&cat=1">Education</a><br>
+                    <a href="{% url 'search' %}?q=Engineering&cat=1">Engineering</a><br>
+                    <a href="{% url 'search' %}?q=Fiction&cat=1">Fiction</a><br>
+                    <a href="{% url 'search' %}?q=History&cat=1">History</a><br>
+                    <a href="{% url 'search' %}?q=Horror&cat=1">Horror</a><br>
+                    <a href="{% url 'search' %}?q=Humor&cat=1">Humor</a><br>
+                    <a href="{% url 'search' %}?q=Mathematics&cat=1">Mathematics</a><br>
+                    <a href="{% url 'search' %}?q=Philosophy&cat=1">Philosophy</a><br>
+                    <a href="{% url 'search' %}?q=Poetry&cat=1">Poetry</a><br>
+                    <a href="{% url 'search' %}?q=Psychology&cat=1">Psychology</a><br>
+                    <a href="{% url 'search' %}?q=Religion&cat=1">Religion</a><br>
+                    <a href="{% url 'search' %}?q=Science&cat=1">Science</a><br>
+                    <a href="{% url 'search' %}?q=Travel&cat=1">Travel</a><br>
+                </p>
+            </div>
+        {% endif %}
+        {% block content %}
+        {% endblock %}
     </main>
     <footer class="footer bg-light">
         <div class="text-right">All Rights Reserved, &copy; 2020 BookFellas &nbsp;</div>
     </footer>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>

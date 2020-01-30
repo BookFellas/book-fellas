@@ -2,6 +2,8 @@
 {% block content %}
 
 <div class="container">
+<div class="layout">
+    <div class="layout__main">
         <a href="{% url 'index' %}">
             <div class="jumbotron">
                 <div class="jumbotron-h1">
@@ -11,7 +13,7 @@
         </a>
         <div class="row" id="results">
             <div class="card card-deck card-margin">
-                <a href="{% url 'index' %}">
+                <a href="{% url 'search' %}?q=Poetry&cat=1">
                 <img src="https://rotaryvillas.ca/wp-content/uploads/2019/02/valentines-day.jpg" class="card-img-top card-three" alt="">
                     <div class="card-body">
                         <p class="card-text card-text-three"><strong>Valentines Day Sale</strong></p>
@@ -19,7 +21,7 @@
                 </a>
             </div>
             <div class="card card-deck card-margin">
-                <a href="{% url 'index' %}">
+                <a href="{% url 'search' %}?q=mathematics&cat=1">
                 <img src="https://www.esxossmanway.ca/wp-content/uploads/2019/08/Welcome-Back-to-School.jpg" class="card-img-top card-three" alt="">
                     <div class="card-body">
                         <p class="card-text card-text-three"><strong>Shopping For Back to School</strong></p>
@@ -27,13 +29,15 @@
                 </a>
             </div>
             <div class="card card-deck card-margin">
-                <a href="{% url 'index' %}">
+                <a href="{% url 'search' %}?q=star wars">
                 <img src="https://nationalpostcom.files.wordpress.com/2019/11/baby-yoda.jpg?quality=80&strip=all&w=780" class="card-img-top card-three" alt="">
                     <div class="card-body">
-                        <p class="card-text card-text-three"><strong>Top Trending Book</strong></p>
+                        <p class="card-text card-text-three"><strong>Shopping For Star Wars</strong></p>
                     </div>
                 </a>
             </div>
         </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

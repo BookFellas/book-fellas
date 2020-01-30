@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+<div class="container">
 <h3>{{ user }}'s Profile</h3>
 <form  method="post" action="">
     <div class="form-group">
@@ -13,5 +13,5 @@
 	<input type="submit" value="Submit!" class="btn float-right btn-success">
 	<button class="btn btn-warning float-left"><a href={% url 'profiles_index' %}>Back</a></button>
 </form>
-
+</div>
 {% endblock %}
