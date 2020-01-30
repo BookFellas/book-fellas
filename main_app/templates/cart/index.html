@@ -1,27 +1,37 @@
 {% extends 'base.html' %}
 {% block content %}
-<h3>My Cart</h3>
-
-    <div class="card" style="width: 70rem;">
-        <h4 class="card-header">Hello {{ user.username }}</h4>
-			<div class="card-body">
-				<p class="card-text">Book: {{ user.book.title }}</p>
-				<p class="card-text">Created: {{ user.cart.order_date }}</p>
-				<p class="card-text">Status:{{ user.cart.status }}</P>
-				<p class="card-text">Order Quantity:
-				<form action="/cart" method="POST">
-					<input
-						type="number"
-						name="{{ user.cart.quantity }}"
-						class="form-control"
-						min="0"
-						step="1"
-					/>
-				</form>
-				</P>
-				<p class="card-text">Total Price:{{ book.price }}</P>
-				<a href="#" class="btn btn-success">Check out</a>
-			</div>
-    </div>
-
+	<div class="container">
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col"></th>
+					<th scope="col">Title</th>
+					<th scope="col">Price</th>
+					<th scope="col">Quantity</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for product_item in product_items %}
+					<tr>
+						<th scope="row"><img src="{{ product_item.book.book_img }}"></th>
+						<td>{{ product_item.book }}</td>
+						<td>{{ product_item.price }}.00</td>
+						<td>
+							<form action="/cart" method="POST" class='quantity-bar'>
+								<input
+									type="number"
+									name="{{ user.quantity }}"
+									class="form-control"
+									min="0"
+									step="1"
+									value="{{ product_item.quantity }}"
+								>
+							</form>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<a href="#" class="btn btn-success">Check out</a>
+	</div>
 {% endblock %}

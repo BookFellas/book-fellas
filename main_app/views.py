@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.views.generic.edit import UpdateView, CreateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
-from .forms import ProfileForm, UserForm
+from .forms import ProfileForm, UserForm, ProductItemForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -25,8 +25,6 @@ class bookList(APIView):
             'title': 'Results',
             'books': books
         })
-        # serializer = bookSerializer(books, many=True)
-        # return Response(serializer.data)
 
 def signup(request):
     error_message = ''
@@ -60,24 +58,24 @@ def about(request):
 
 def books_index(request):
     books = Book.objects.all()
-    # books = Book.objects.filter(user = request.user)
-    return render(request, 'books/index.html', { 'books': books })
+    form = ProductItemForm()
+    return render(request, 'books/index.html', { 'books': books, 'product_item_form': form })
 
 def books_detail(request, book_id):
     book = Book.objects.get(id=book_id)
-    return render(request, 'books/detail.html', {'book': book })
+    form = ProductItemForm()
+    return render(request, 'books/detail.html', {'book': book, 'product_item_form': form })
 
 @login_required
 def profiles_index(request):
     profiles = Profile.objects.all()
-    # profiles = profile.objects.filter(user = request.user)
     return render(request, 'profiles/index.html', { 'profiles': profiles })
 
 @login_required
 def cart_index(request):
-    #cart = User.objects.filter(products)
-    book = Book.objects.all()
-    return render(request, 'cart/index.html', { 'cart': cart }, { 'book': book })
+    books = Book.objects.all()
+    product_items = ProductItem.objects.all()
+    return render(request, 'cart/index.html', {'product_items': product_items}, {'books': books})
 
 @login_required
 def seed(request):
@@ -101,7 +99,7 @@ def seed_db(request):
                 items = resp.json()['items']
 
                 for item in items:
-                    if len(item['volumeInfo'].get('authors', 'N/A')) > 1:
+                    if len(item['volumeInfo'].get('authors', '-')) > 1:
                         authors = ", ".join(map(str, item['volumeInfo'].get('authors', 'N/A')))
                     else:
                         authors = item['volumeInfo'].get('authors', 'N/A')[0]
@@ -143,3 +141,14 @@ def seed_db(request):
                 return JsonResponse({'status': 'ok'})
     else:
         return redirect('index')
+
+def add_product_item(request, book_id):
+    form = ProductItemForm(request.POST)
+    print(request.user.id)
+    if form.is_valid():
+        new_product_item = form.save(commit=False)
+        new_product_item.book_id = book_id
+        #new_product_item.book.price = book.price
+        new_product_item.user_id = request.user.id
+        new_product_item.save()
+    return redirect('/cart/')

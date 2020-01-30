@@ -13,5 +13,6 @@ urlpatterns = [
     path('accounts/signup/', views.signup, name='signup'),
     url(r'^search/$', views.bookList.as_view(), name='search'),
     url(r'^seed_db/$', views.seed_db, name='seed_db'),
-    path('seed/', views.seed, name='seed')
+    path('seed/', views.seed, name='seed'),
+    path('books/<int:book_id>/add_product_item', views.add_product_item, name='add_product_item')
 ]

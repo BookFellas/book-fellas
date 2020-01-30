@@ -31,11 +31,6 @@ class Book(models.Model):
 class Order(models.Model):
     order_date = models.DateField(auto_now=True)
     shipping_date = models.DateField(default=datetime.now()+timedelta(days=7))
-    # status = models.CharField(
-    #                         max_length=10,
-    #                         choices=STATUSES,
-    #                         default=STATUSES[0][0]
-    #                     )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class ProductItem(models.Model):
@@ -43,7 +38,7 @@ class ProductItem(models.Model):
     price = models.IntegerField()
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, blank=True)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True, blank=True)
     
 class Profile(models.Model):
     phone = models.CharField(max_length=25, null=True)

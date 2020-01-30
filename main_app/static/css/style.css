@@ -138,7 +138,6 @@ h1 {
     font-size: 80px;
     padding: 50px;
 }
-
 .sign {
     text-align: left;
     width: 70%;
@@ -150,4 +149,9 @@ h1 {
 
 #seed-response {
     padding-top: 30px;
+}
+.quantity-bar {
+    max-width: 10vw;
+    text-align: center;
+    justify-content: center;
 }
