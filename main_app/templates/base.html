@@ -52,17 +52,35 @@
             <li class="nav-item"><a class="nav-link" href="{% url 'cart_index' %}"><i class="fas fa-shopping-cart fa-lg" style="margin: 0 10px; color: red"></i></a></li>
         {% endif %}
         </ul>
-        
     </div>
     </nav>
     <main class="container">
+    <div id="mySidenav" class="sidenav">
+            <p id="about">
+            <a href="{% url 'search' %}?q=engineering">Engineering</a><br>
+            <a href="{% url 'search' %}?q=science">Science</a><br>
+            <a href="search/">4</a><br>
+            <a href="search/">5</a><br>
+            <a href="search/">6</a><br>
+            <a href="search/">7</a><br>
+            <a href="search/">8</a><br>
+            <a href="search/">9</a><br>
+            <a href="search/">10</a><br>
+            <a href="search/">11</a><br>
+            <a href="search/">12</a><br>
+            <a href="search/">13</a><br>
+            <a href="search/">14</a><br>
+            <a href="search/">15</a><br>
+            </p>
+        </div>
+    </div>
     {% block content %}
     {% endblock %}
     </main>
     <footer class="footer bg-light">
         <div class="text-right">All Rights Reserved, &copy; 2020 BookFellas &nbsp;</div>
     </footer>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>

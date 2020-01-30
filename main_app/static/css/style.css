@@ -44,6 +44,7 @@ ul {
 .card {
     border: none;
     max-width: 600px;
+    margin-top: 50px;
 }
 
 .card img {
@@ -166,4 +167,35 @@ h1 {
     bottom: 65px;
     left: 80px;
     padding: 10px;
+}
+
+#mySidenav p {
+    position: fixed;
+    left: -140px;
+    transition: 0.3s;
+    padding: 15px;
+    width: 150px;
+    height: 705px;
+    text-decoration: none;
+    font-size: 20px;
+    color: rgb(250, 250, 250);
+    margin: auto;
+}
+
+#mySidenav a {
+    color: rgb(0, 83, 7);
+}
+
+#mySidenav a:hover {
+    color: rgb(0, 192, 48);
+}
+
+#mySidenav p:hover {
+    left: 0;
+}
+
+#about {
+    top: 75px;
+    background-color: rgba(76, 175, 79, 0.493);
+    margin: auto;
 }
