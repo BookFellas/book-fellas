@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    <div class="card row">
+    <div class="card">
         <h4 class="card-header">Hello {{ user.profile.user }}</h4>
-			<div class="card-body">
+			<div class="card-body" id="profile-card">
 				<p class="card-text"><strong>Phone:&nbsp</strong> {{ user.profile.phone }}</p>
 				<p class="card-text"><strong>Address:&nbsp</strong> {{ user.profile.address }}</p>
 				<p class="card-text"><strong>Post Code:&nbsp</strong>{{ user.profile.postal_code }}</P>

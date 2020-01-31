@@ -43,7 +43,7 @@ ul {
 
 .card {
     border: none;
-    max-width: 600px;
+    max-width: 50vw;
     margin-top: 50px;
 }
 
@@ -175,8 +175,8 @@ h1 {
 
 #mySidenav p {
     position: fixed;
-    left: -140px;
     transition: 0.3s;
+    left: 0;
     padding: 15px;
     width: 150px;
     height: 100vh;
@@ -187,20 +187,20 @@ h1 {
 }
 
 #mySidenav a {
-    color: rgb(0, 83, 7);
+    
 }
 
 #mySidenav a:hover {
-    color: rgb(0, 192, 48);
+    color: #224455;
 }
 
 #mySidenav p:hover {
-    left: 0;
+   
 }
 
 #about {
     top: 75px;
-    background-color: rgba(76, 175, 79, 0.493);
+    background-color: rgba(0,0,0,0);
     margin: auto;
 }
 
@@ -217,4 +217,7 @@ h1 {
 input.inside-btn {
     background-color: rgba(0,0,0,0);
     border: none;
+}
+.form-control {
+    width: 100%;
 }

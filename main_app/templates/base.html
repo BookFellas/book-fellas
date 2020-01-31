@@ -27,7 +27,7 @@
             <li class="navbar-nav"><a class="nav-link" href="{% url 'index' %}"><h4>Books</h4></a></li>
             <li class="navbar-nav"><a class="nav-link" href="{% url 'orders_index' %}"><h4>Orders</h4></a></li>
             <form class="form-inline my-2 my-lg-0" action="/search/?q=" method="GET">
-                <input class="form-control mr-sm-2" type="text" name="q" placeholder="Search" aria-label="Search" required>
+                <input class="form-control d-flex p-2" type="text" name="q" placeholder="Search" aria-label="Search" required>
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
             </form>
             <ul class="navbar-nav">
@@ -58,9 +58,10 @@
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         This is a success alert—check it out!
     </div>
-    <main class="container">
+    <div class="container">
         {% if sidebar %}
             <div id="mySidenav" class="sidenav">
+                
                 <p id="about">
                     <a href="{% url 'search' %}?q=Business">Business</a><br>
                     <a href="{% url 'search' %}?q=Computer">Computer</a><br>
@@ -84,7 +85,7 @@
         {% endif %}
         {% block content %}
         {% endblock %}
-    </main>
+    </div>
     <footer class="footer bg-light">
         <div class="text-right">All Rights Reserved, &copy; 2020 BookFellas &nbsp;</div>
     </footer>
