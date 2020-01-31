@@ -31,11 +31,8 @@ A user wants to have a place where they can create, view, edit, and delete the s
 
 ## **Getting Started**
 
-The  full-stack Django CRUD app: 
+The  full-stack Django CRUD app: https://bookfellas.herokuapp.com/
 
-
-
-![screenshot]()
 
 ##  **Unsolved Problems/Next Steps**
 
