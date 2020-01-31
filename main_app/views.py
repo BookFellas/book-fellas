@@ -276,3 +276,4 @@ def increase_quantity(request, product_item_id):
     product.quantity = request.POST.get('increase')
     product.save()
     return redirect('/cart/')
+

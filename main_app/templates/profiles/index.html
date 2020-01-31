@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<div class="row justify-content-center align-items-center">
     <div class="card">
         <h4 class="card-header">Hello {{ user.profile.user }}</h4>
 			<div class="card-body" id="profile-card">
@@ -13,5 +14,6 @@
 				<a href="{% url 'profiles_update' user.id %}" class="btn btn-success btn-block">Edit</a>
 			</div>
     </div>
+</div>
 
 {% endblock %}
