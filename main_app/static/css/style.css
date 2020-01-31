@@ -231,3 +231,21 @@ input.inside-btn {
 .form-control {
     width: 100%;
 }
+
+#jry {
+    max-width: 300px;
+    max-height: 600px;
+    margin: auto;
+    margin-top: inherit;
+    border: 1px solid rgb(124, 124, 125);
+}
+
+#jry img {
+    object-fit: contain;
+}
+
+#introteam {}
+
+#forever {
+    background-image: url(https://cdn.dribbble.com/users/484492/screenshots/1390535/foreveryoung.jpg);
+}
