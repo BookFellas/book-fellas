@@ -45,6 +45,7 @@ ul {
     border: none;
     max-width: 50vw;
     margin-top: 50px;
+    margin: auto;
 }
 
 .card img {
@@ -152,8 +153,17 @@ h1 {
     justify-content: center;
 }
 .form-inline {
-    max-width: 250px;
+    display: flex;
+    flex-grow: 1;
+    min-width: 40%;
+    width: 50%;
+    justify-content: center;
     margin: auto;
+}
+
+#search {
+    min-width: 30%;
+    width: 40%;
 }
 
 .card-body {

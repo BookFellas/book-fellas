@@ -8,21 +8,24 @@
         <div class="card-deck">
                 <div class="card">
                     <a class="" href="{% url 'detail' book.id %}">
-                    <img class="card-img-top" src="{{ book.book_img }}" alt="{{ book.title }}-image">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">{{ book.title| truncatechars:30 }}</h5>
-                        <ul class="card-text">
-                            <li class="author">by&nbsp<Strong> {{ book.author| truncatechars:20 }}</Strong></li>
-                        </ul>
-                    </a>
+                        <img class="card-img-top" src="{{ book.book_img }}" alt="{{ book.title }}-image">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">{{ book.title| truncatechars:30 }}</h5>
+                            <ul class="card-text">
+                                <li class="author">by&nbsp<Strong> {{ book.author| truncatechars:20 }}</Strong></li>
+                            </ul>
                         <div class="price"><Strong>$</Strong> {{ book.price}}</div>
-                    
+                    </a>
+                    {% if user.is_authenticated %}
                         <form action="{% url 'add_product_item_index' book.id %}" method="post" class="btn btn-outline-dark mt-auto">
                             {% csrf_token %}
                             <input type="submit" class="inside-btn" value="Add To Cart">
                         </form>
-                    </div>
+                    {% else %}
+                        <button onclick="window.location.href='{% url 'login' %}'"class="btn btn-outline-dark mt-auto">Add To Cart</button>
+                    {% endif %}
                 </div>
+            </div>
         </div>
     {% endfor %}
 </div>
