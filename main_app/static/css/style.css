@@ -134,6 +134,7 @@ h1 {
     text-align: center;
     font-size: 80px;
 }
+
 .sign {
     text-align: left;
     width: 70%;
@@ -152,6 +153,7 @@ h1 {
     text-align: center;
     justify-content: center;
 }
+
 .form-inline {
     display: flex;
     flex-grow: 1;
@@ -196,21 +198,17 @@ h1 {
     margin: auto;
 }
 
-#mySidenav a {
-    
-}
+#mySidenav a {}
 
 #mySidenav a:hover {
     color: #224455;
 }
 
-#mySidenav p:hover {
-   
-}
+#mySidenav p:hover {}
 
 #about {
     top: 75px;
-    background-color: rgba(0,0,0,0);
+    background-color: rgba(0, 0, 0, 0);
     margin: auto;
 }
 
@@ -224,10 +222,12 @@ h1 {
     background-color: grey;
     color: white;
 }
+
 input.inside-btn {
-    background-color: rgba(0,0,0,0);
+    background-color: rgba(0, 0, 0, 0);
     border: none;
 }
+
 .form-control {
     width: 100%;
 }
