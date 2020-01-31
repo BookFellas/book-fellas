@@ -247,4 +247,5 @@ input.inside-btn {
 
 #forever {
     background-image: url(https://cdn.dribbble.com/users/484492/screenshots/1390535/foreveryoung.jpg);
+    background-repeat: repeat-x;
 }
