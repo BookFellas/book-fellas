@@ -25,9 +25,9 @@
 				</div>
 				<p class="text-left"><strong>Description:&nbsp</strong>{{ book.description }}</P>
 			</div>
-			<form action="{% url 'increase_quantity' book.id %}" method="post">
+			<form action="{% url 'add_product_item_index' book.id %}" method="post" class="btn btn-outline-dark mt-auto">
 				{% csrf_token %}
-				<input type="submit" class="btn btn-outline-dark mt-auto" value="Add To Cart">
+				<input type="submit" class="inside-btn" value="Add To Cart">
 			</form>
 		</div>
 	</div>
