@@ -15,22 +15,21 @@
 				{% for product_item in product_items %}
 				{% if product_item.user.id == user.id and product_item.order == null %}
 					<tr>
-						
-							<th scope="row"><a href="/books/{{ product_item.book.id }}/"><img src="{{ product_item.book.book_img }}"></a></th>
-							<td><a href="/books/{{ product_item.book.id }}/">{{ product_item.book }}</a></td>
-						
+						<th scope="row"><a href="/books/{{ product_item.book.id }}/"><img src="{{ product_item.book.book_img }}"></a></th>
+						<td><a href="/books/{{ product_item.book.id }}/">{{ product_item.book }}</a></td>
 						<td>${% widthratio product_item.price 1 product_item.quantity %}</td>
 						<td>
-							<form action="/cart" method="POST" class='quantity-bar'>
+							<form action="{% url 'increase_quantity' product_item.id %}" method="POST" class='quantity-bar'>
 								{% csrf_token %}
 								<input
 									type="number"
-									name="{{ user.quantity }}"
+									name="increase"
 									class="form-control"
 									min="0"
 									step="1"
 									value="{{ product_item.quantity }}"
 								>
+								<input class="btn" type="submit" value="Update">
 							</form>
 						</td>
 						<td>

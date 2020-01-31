@@ -152,8 +152,8 @@ def profiles_index(request):
 def cart_index(request):
     books = Book.objects.all()
     product_items = ProductItem.objects.all()
-    order = Order.objects.all()
-    return render(request, 'cart/index.html', {'product_items': product_items, 'books': books, 'order': order})
+    orders = Order.objects.all()
+    return render(request, 'cart/index.html', {'product_items': product_items, 'books': books, 'orders': orders})
 
 
 @login_required
@@ -239,6 +239,14 @@ def add_product_item_index(request, book_id):
 
 def add_product_item(request, book_id):
     form = ProductItemForm(request.POST)
+    book = Book.objects.get(pk=book_id)
+    user_items = ProductItem.objects.filter(user=request.user)
+    order_items = user_items.filter(order__isnull=True)
+    items = order_items.filter(book_id=book.id)
+    for item in items:
+        item.quantity = request.POST('increase')
+        item.save()
+        return redirect('/cart/')
     if form.is_valid():
         new_product_item = form.save(commit=False)
         new_product_item.book_id = book_id
@@ -261,4 +269,10 @@ def add_order(request):
     for item in items:
         item.order_id = order.id
         item.save()
+    return redirect('/cart/')
+
+def increase_quantity(request, product_item_id):
+    product = ProductItem.objects.get(pk=product_item_id)
+    product.quantity = request.POST.get('increase')
+    product.save()
     return redirect('/cart/')
