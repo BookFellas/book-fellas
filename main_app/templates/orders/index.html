@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+	<div class="container">
+		<table class="table">
+			<thead>
+				<tr>
+                    <th scope="col">Customer</th>
+                    <th scope="col">Price</th>
+					<th scope="col">Created On</th>
+					<th scope="col">Delivery Date</th>
+					<th scope="col">Order#</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for order in orders %}
+				{% if order.user.id == user.id %}
+					<tr>
+                        <td>{{ order.user.username }}</td>
+                        <td>$100</td>
+                        <td> {{order.shipping_date}}</td>
+                        <td> {{order.order_date}}</td>
+                        <td><a href="/orders/{{ order.id }}/"> {{order.id}}</td></a>
+					</tr>
+				{% endif %}
+				{% endfor %}
+			</tbody>
+        </table>
+    {% endblock %}

@@ -19,4 +19,7 @@ urlpatterns = [
     url(r'categories/$', views.categoriesList.as_view(), name='categories'),
     path('books/<int:book_id>/add_product_item_index', views.add_product_item_index, name='add_product_item_index'),
     path('cart/<int:product_item_id>/delete_product_item/', views.delete_product_item, name='delete_product_item'),
+    path('orders/add_order/', views.add_order, name='add_order'),
+    path('orders/', views.orders_index, name='orders_index'),
+    path('orders/<int:order_id>/', views.orders_detail, name='orders_detail')
 ]

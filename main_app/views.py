@@ -130,6 +130,19 @@ def books_detail(request, book_id):
     form = ProductItemForm()
     return render(request, 'books/detail.html', {'book': book, 'sidebar': True, 'product_item_form': form })
 
+def orders_index(request):
+    orders = Order.objects.all()
+    return render(request, 'orders/index.html', {'orders': orders})
+
+def orders_detail(request, order_id):
+    order = Order.objects.get(pk=order_id)
+    user_items =  ProductItem.objects.filter(user_id=request.user.id)
+    product_items = user_items.filter(order_id=order_id)
+    print(order)
+    print(user_items)
+    print(product_items)
+    return render(request, 'orders/detail.html', {'order': order, 'product_items':product_items})
+
 @login_required
 def profiles_index(request):
     profiles = Profile.objects.all()
@@ -139,7 +152,8 @@ def profiles_index(request):
 def cart_index(request):
     books = Book.objects.all()
     product_items = ProductItem.objects.all()
-    return render(request, 'cart/index.html', {'product_items': product_items}, {'books': books})
+    order = Order.objects.all()
+    return render(request, 'cart/index.html', {'product_items': product_items, 'books': books, 'order': order})
 
 
 @login_required
@@ -213,6 +227,7 @@ def add_product_item_index(request, book_id):
     items = order_items.filter(book_id=book.id)
     for item in items:
         item.quantity += 1
+        item.save()
         return redirect('/cart/')
     new_product_item = ProductItem(quantity=0)
     new_product_item.book_id = book_id
@@ -234,7 +249,16 @@ def add_product_item(request, book_id):
     return redirect('/cart/')
 
 def delete_product_item(request, product_item_id):
-    print(product_item_id)
     prod = ProductItem.objects.get(pk=product_item_id)
     prod.delete()
+    return redirect('/cart/')
+
+def add_order(request):
+    user_items = ProductItem.objects.filter(user=request.user)
+    items = user_items.filter(order__isnull=True)
+    order = Order(user_id=request.user.id)
+    order.save()
+    for item in items:
+        item.order_id = order.id
+        item.save()
     return redirect('/cart/')

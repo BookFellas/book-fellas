@@ -13,9 +13,10 @@
                         <h5 class="card-title">{{ book.title| truncatechars:30 }}</h5>
                         <ul class="card-text">
                             <li class="author">by&nbsp<Strong> {{ book.author| truncatechars:20 }}</Strong></li>
-						</ul>
-                        <div class="price"><Strong>$</Strong> {{ book.price}}</div>
+                        </ul>
                     </a>
+                        <div class="price"><Strong>$</Strong> {{ book.price}}</div>
+                    
                         <form action="{% url 'add_product_item_index' book.id %}" method="post" class="btn btn-outline-dark mt-auto">
                             {% csrf_token %}
                             <input type="submit" class="inside-btn" value="Add To Cart">
@@ -24,7 +25,7 @@
                 </div>
         </div>
     {% endfor %}
-    </div>
+</div>
     {% if last_page != 0 %}
         <div id="page_number">
             <nav aria-label="Page navigation example">
